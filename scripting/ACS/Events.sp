@@ -24,7 +24,7 @@ public void OnMapStart()
 {
     // Execute config file
     char strFileName[64];
-    Format(strFileName, sizeof(strFileName), "Automatic_Campaign_Switcher_%s", PLUGIN_VERSION);
+    Format(strFileName, sizeof(strFileName), "Campaign_Switcher_%s", PLUGIN_VERSION);
     AutoExecConfig(true, strFileName);
 
     // Check if the Maps List File has changed, if so reload it into the Map List Array

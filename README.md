@@ -91,9 +91,9 @@ acs_max_coop_finale_failures "4"
 
 ### Custom Campaigns/Maps
 
-If you choose to change the default map rotation or set up a custom maps, then edit `acs_map_list.txt` which can be found in a location similar to this:
+If you choose to change the default map rotation or set up a custom maps, then edit `Campaign_Switcher_Map_List_<version>.txt` which can be found in a location similar to this:
 
-`C:\Program Files (x86)\Steam\steamapps\common\left 4 dead 2\left4dead2\addons\sourcemod\configs\acs_map_list.txt`
+`C:\Program Files (x86)\Steam\steamapps\common\left 4 dead 2\left4dead2\addons\sourcemod\configs\`
 
 ##### acs_map_list.txt
 

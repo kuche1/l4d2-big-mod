@@ -1,5 +1,4 @@
-// This is the location ACS looks for the map list config file
-#define ACS_MAP_LIST_FILE_PATH "configs/acs_map_list.txt"
+
 // The currently know timestamp value for the map list file
 int g_iUsedMapListFileModifiedTimeStamp = -1;
 
