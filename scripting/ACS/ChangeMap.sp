@@ -8,7 +8,9 @@ void ChangeMapIfNeeded()
 {
     // Ensure the game mode has been set to a valid one before continuing
     if (IsGameModeValid(g_iGameMode) == false)
+    {
         return;
+    }
 
     // This is required because the Events can fire multiple times
     g_bStopACSChangeMap = true;
@@ -31,7 +33,9 @@ void SetUpMapChange(int iMapIndex)
     // Ensure its a valid map
     if (IsMapIndexValid(iMapIndex) == false)
     {
-        LogError("ACS Error: SetUpMapChange -> Invalid Map Index! %i", iMapIndex);
+        // TODO this will mappen on all coop maps except finales
+        PrintToChatAll("\x03[CS:error]\x05 could not determine next map, try calling !mapvote");
+        LogError("CS Error: SetUpMapChange -> Invalid Map Index! %i", iMapIndex);
         return;
     }
 

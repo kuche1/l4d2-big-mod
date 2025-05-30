@@ -26,12 +26,6 @@ Action MapVote(int iClient, int args)
         return;
     }
 
-    if (OnFinaleOrScavengeOrSurvivalMap() == false)
-    {
-        PrintToChat(iClient, "\x03[CS]\x05 Voting is only enabled on a Scavenge, Survival, or Finale maps.");
-        return;
-    }
-
     // Open the vote menu for the client if they aren't using the server console
     if (iClient < 1)
         PrintToServer("You cannot vote for a map from the server console, use the in-game chat");
@@ -45,12 +39,6 @@ Action DisplayCurrentVotes(int iClient, int args)
     if (g_bVotingEnabled == false)
     {
         PrintToChat(iClient, "\x03[CS]\x05 Voting has been disabled on this server.");
-        return;
-    }
-
-    if (OnFinaleOrScavengeOrSurvivalMap() == false)
-    {
-        PrintToChat(iClient, "\x03[CS]\x05 Voting is only enabled on a Scavenge, Survival, or Finale maps.");
         return;
     }
 

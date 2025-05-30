@@ -1,6 +1,17 @@
 # Campaign Switcher
 
+## Change log
+
+###### v3.0.0 (2025-05-30)
+
+- Map voting is no longer limited to Finale maps on Coop
+- Map change after N failures no longer only applies to Finales only on Coop
+
+# Credits
+
 Based on `https://github.com/Chris7c0/ACS`.
+
+Original description:
 
 # Automatic Campaign Switcher (ACS)
 

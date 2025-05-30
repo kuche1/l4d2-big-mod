@@ -14,6 +14,9 @@
 #include <sourcemod>
 #include <sdktools>
 
+#define CS_DEFAULT_MAX_COOP_FAILURES     20
+#define CS_DEFAULT_MAX_COOP_FAILURES_STR "20"
+
 #include "ACS/GlobalVariables.sp"
 #include "ACS/MapNames.sp"
 #include "ACS/Advertising.sp"
