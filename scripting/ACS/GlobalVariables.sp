@@ -38,13 +38,13 @@ float g_fWaitTimeBeforeSwitch[] = {
 #define SOUND_NEW_VOTE_WINNER             "ui/alert_clink.wav"
 
 // Global Variables
-int  g_iRoundEndCounter;                                   // Round end event counter for versus
-bool g_bStopACSChangeMap;                                  //
-bool g_bCanIncrementRoundEndCounter;                       // Prevents incrementing the round end counter twice from multiple event triggers
-int  g_iCoopFailureCount;                                  // Number of times the Survivors have lost the current map
-int  g_iMaxCoopFailures = CS_DEFAULT_MAX_COOP_FAILURES;    // Amount of times Survivors can fail before CS switches in coop
-bool g_bFinaleWon;                                         // Indicates whether a finale has be beaten or not
-char g_strMapListFilePath[256] = "";                       // Path of the map file list
+int  g_iRoundEndCounter;                                        // Round end event counter for versus
+bool g_bStopACSChangeMap;                                       //
+bool g_bCanIncrementRoundEndCounter;                            // Prevents incrementing the round end counter twice from multiple event triggers
+int  g_iCoopFailureCount;                                       // Number of times the Survivors have lost the current map
+int  g_iMaxCoopFailures = SETTING_MAX_COOP_FAILURES_DEFAULT;    // Amount of times Survivors can fail before CS switches in coop
+bool g_bFinaleWon;                                              // Indicates whether a finale has be beaten or not
+char g_strMapListFilePath[256] = "";                            // Path of the map file list
 
 // Map List Rotation For All GameModes
 #define MAX_TOTAL_MAP_COUNT   200    // Defines how many maps can be added. Higher values increase memory footprint
