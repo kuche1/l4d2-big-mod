@@ -4,8 +4,9 @@
 
 ###### v3.0.0 (2025-05-30)
 
-- Map voting is no longer limited to Finale maps on Coop
-- Map change after N failures no longer only applies to Finales only on Coop
+- Coop: Map voting is no longer limited to Finale maps
+- Coop: Map change message will appear after N failures, instead of a forced map change
+- Coop: Map will be changed after a failure if a vete had been taken
 
 # Credits
 

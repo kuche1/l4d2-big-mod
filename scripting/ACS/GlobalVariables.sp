@@ -56,21 +56,21 @@ char g_strMapListArray[MAX_TOTAL_MAP_COUNT][MAP_LIST_COLUMN_COUNT][64];
 #define MAP_LIST_COLUMN_MAP_NAME_START  2
 #define MAP_LIST_COLUMN_MAP_NAME_END    3
 // Keep track of indexes that are relevant to the current game mode
-int g_iMapsIndexStartForCurrentGameMode;
-int g_iMapsIndexEndForCurrentGameMode;
+int    g_iMapsIndexStartForCurrentGameMode;
+int    g_iMapsIndexEndForCurrentGameMode;
 
-// Map and Advertising display modes
-#define DISPLAY_MODE_DISABLED 0
-#define DISPLAY_MODE_HINT     1
-#define DISPLAY_MODE_CHAT     2
-#define DISPLAY_MODE_MENU     3
+// // Map and Advertising display modes
+// #define DISPLAY_MODE_DISABLED 0
+// #define DISPLAY_MODE_HINT     1
+// #define DISPLAY_MODE_CHAT     2
+// #define DISPLAY_MODE_MENU     3
 
 // Voting Variables
-bool   g_bVotingEnabled          = true;                 // Tells if the voting system is on
-int    g_iVotingAdDisplayMode    = DISPLAY_MODE_MENU;    // The way to advertise the voting system
+bool   g_bVotingEnabled          = true;    // Tells if the voting system is on
+// int    g_iVotingAdDisplayMode    = DISPLAY_MODE_MENU;    // The way to advertise the voting system
 // float  g_fVotingAdDelayTime      = 1.0;                  // Time to wait before showing advertising
-bool   g_bVoteWinnerSoundEnabled = true;                 // Sound plays when vote winner changes
-int    g_iNextMapAdDisplayMode   = DISPLAY_MODE_HINT;    // The way to advertise the next map
+bool   g_bVoteWinnerSoundEnabled = true;    // Sound plays when vote winner changes
+// int    g_iNextMapAdDisplayMode   = DISPLAY_MODE_HINT;    // The way to advertise the next map
 // float  g_fNextMapAdInterval      = 600.0;                // Interval for ACS next map advertisement
 bool   g_bClientShownVoteAd[MAXPLAYERS + 1];    // If the client has seen the ad already
 bool   g_bClientVoted[MAXPLAYERS + 1];          // If the client has voted on a map
@@ -81,8 +81,8 @@ int    g_iWinningMapVotes;                      // Winning map/campaign's number
 // Console Variables (CVars)
 Handle g_hCVar_VotingEnabled                       = INVALID_HANDLE;
 Handle g_hCVar_VoteWinnerSoundEnabled              = INVALID_HANDLE;
-Handle g_hCVar_VotingAdMode                        = INVALID_HANDLE;
+// Handle g_hCVar_VotingAdMode                        = INVALID_HANDLE;
 // Handle g_hCVar_VotingAdDelayTime                   = INVALID_HANDLE;
-Handle g_hCVar_NextMapAdMode                       = INVALID_HANDLE;
+// Handle g_hCVar_NextMapAdMode                       = INVALID_HANDLE;
 // Handle g_hCVar_NextMapAdInterval                   = INVALID_HANDLE;
 Handle g_hCVar_coopShowMapVoteMessageAfterFailures = INVALID_HANDLE;
