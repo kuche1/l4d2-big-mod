@@ -22,13 +22,13 @@ Action MapVote(int iClient, int args)
 {
     if (g_bVotingEnabled == false)
     {
-        PrintToChat(iClient, "\x03[ACS] \x05Voting has been disabled on this server.");
+        PrintToChat(iClient, "\x03[CS]\x05 Voting has been disabled on this server.");
         return;
     }
 
     if (OnFinaleOrScavengeOrSurvivalMap() == false)
     {
-        PrintToChat(iClient, "\x03[ACS] \x05Voting is only enabled on a Scavenge, Survival, or Finale maps.");
+        PrintToChat(iClient, "\x03[CS]\x05 Voting is only enabled on a Scavenge, Survival, or Finale maps.");
         return;
     }
 
@@ -44,22 +44,22 @@ Action DisplayCurrentVotes(int iClient, int args)
 {
     if (g_bVotingEnabled == false)
     {
-        PrintToChat(iClient, "\x03[ACS] \x05Voting has been disabled on this server.");
+        PrintToChat(iClient, "\x03[CS]\x05 Voting has been disabled on this server.");
         return;
     }
 
     if (OnFinaleOrScavengeOrSurvivalMap() == false)
     {
-        PrintToChat(iClient, "\x03[ACS] \x05Voting is only enabled on a Scavenge, Survival, or Finale maps.");
+        PrintToChat(iClient, "\x03[CS]\x05 Voting is only enabled on a Scavenge, Survival, or Finale maps.");
         return;
     }
 
     // Display to the client the current winning map
     if (g_iWinningMapIndex > -1)
-        PrintToChat(iClient, "\x03[ACS] \x05Currently winning the vote: \x04%s",
+        PrintToChat(iClient, "\x03[CS]\x05 Currently winning the vote: \x04%s",
                     g_strMapListArray[g_iWinningMapIndex][MAP_LIST_COLUMN_MAP_DESCRIPTION]);
     else
-        PrintToChat(iClient, "\x03[ACS] \x05No one has voted yet.");
+        PrintToChat(iClient, "\x03[CS]\x05 No one has voted yet.");
 
     // Loop through all maps and display the ones that have votes
     int[] iMapVotes = new int[MAX_TOTAL_MAP_COUNT];
