@@ -60,5 +60,5 @@ public void
     SetupConsoleCommands();
 
     // Repeating Timers
-    CreateTimer(g_fNextMapAdInterval, Timer_AdvertiseNextMap, _, TIMER_REPEAT);
+    // CreateTimer(g_fNextMapAdInterval, Timer_AdvertiseNextMap, _, TIMER_REPEAT);
 }

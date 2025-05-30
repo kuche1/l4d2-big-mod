@@ -60,8 +60,8 @@ public void OnMapStart()
 // Event fired when the Survivors leave the start area
 public Action Event_PlayerLeftStartArea(Handle hEvent, const char[] strName, bool bDontBroadcast)
 {
-    if (g_bVotingEnabled == true && OnFinaleOrScavengeOrSurvivalMap() == true)
-        CreateTimer(g_fVotingAdDelayTime, Timer_DisplayVoteAdToAll, _, TIMER_FLAG_NO_MAPCHANGE);
+    // if (g_bVotingEnabled == true && OnFinaleOrScavengeOrSurvivalMap() == true)
+    //     CreateTimer(g_fVotingAdDelayTime, Timer_DisplayVoteAdToAll, _, TIMER_FLAG_NO_MAPCHANGE);
 
     return Plugin_Continue;
 }
@@ -75,18 +75,21 @@ public Action Event_RoundEnd(Handle hEvent, const char[] strName, bool bDontBroa
         // If in Coop and on a finale, check to see if the survivors have lost the max amount of times
         case GAMEMODE_COOP:
         {
-            if (g_iMaxCoopFailures > 0)
+            if (g_bFinaleWon == false)
             {
-                if (g_bFinaleWon == false)
-                {
-                    g_iCoopFailureCount += 1;
-                    PrintToChatAll("\x03[CS]\x05 Failure Count: %d / %d", g_iCoopFailureCount, g_iMaxCoopFailures);
+                g_iCoopFailureCount += 1;
 
-                    if (g_iCoopFailureCount >= g_iMaxCoopFailures)
-                    {
-                        ChangeMapIfNeeded();
-                    }
+                // PrintToChatAll("\x03[CS]\x05 Failure Count: %d", g_iCoopFailureCount);
+
+                if ((g_bVotingEnabled == true) && (g_iCoopFailureCount >= g_coopShowMapVoteMessageAfterFailures))
+                {
+                    PrintToChatAll("\x03[CS]\x05 You can use !mapvote to change the campaign");
                 }
+            }
+
+            if ((g_iWinningMapVotes > 0) && (g_iWinningMapIndex >= 0))
+            {
+                ChangeMapIfNeeded();
             }
         }
         // If in Survival, check to see if round ends have reached the max amount of times

@@ -6,30 +6,30 @@
 ###############                   V O T E   M E N U                       ##############
 ======================================================================================*/
 
-// Timer to show the menu to the players if they have not voted yet
-public Action Timer_DisplayVoteAdToAll(Handle timer, int iData)
-{
-    if (g_bVotingEnabled == false || OnFinaleOrScavengeOrSurvivalMap() == false)
-        return Plugin_Stop;
-
-    // Loop through each player and show them the ACS advertisement based on the display mode
-    for (int iClient = 1; iClient <= MaxClients; iClient++)
-    {
-        if (g_bClientShownVoteAd[iClient] == false && g_bClientVoted[iClient] == false && IsClientInGame(iClient) == true && IsFakeClient(iClient) == false)
-        {
-            switch (g_iVotingAdDisplayMode)
-            {
-                case DISPLAY_MODE_MENU: VoteMenuDraw(iClient);
-                case DISPLAY_MODE_HINT: PrintHintText(iClient, "To vote for the next map, type: !mapvote\nTo see all the votes, type: !mapvotes");
-                case DISPLAY_MODE_CHAT: PrintToChat(iClient, "\x03[CS]\x05 To vote for the next map, type: \x04!mapvote\n           \x05To see all the votes, type: \x04!mapvotes");
-            }
-
-            g_bClientShownVoteAd[iClient] = true;
-        }
-    }
-
-    return Plugin_Stop;
-}
+// // Timer to show the menu to the players if they have not voted yet
+// public Action Timer_DisplayVoteAdToAll(Handle timer, int iData)
+// {
+//     if (g_bVotingEnabled == false || OnFinaleOrScavengeOrSurvivalMap() == false)
+//         return Plugin_Stop;
+//
+//     // Loop through each player and show them the ACS advertisement based on the display mode
+//     for (int iClient = 1; iClient <= MaxClients; iClient++)
+//     {
+//         if (g_bClientShownVoteAd[iClient] == false && g_bClientVoted[iClient] == false && IsClientInGame(iClient) == true && IsFakeClient(iClient) == false)
+//         {
+//             switch (g_iVotingAdDisplayMode)
+//             {
+//                 case DISPLAY_MODE_MENU: VoteMenuDraw(iClient);
+//                 case DISPLAY_MODE_HINT: PrintHintText(iClient, "To vote for the next map, type: !mapvote\nTo see all the votes, type: !mapvotes");
+//                 case DISPLAY_MODE_CHAT: PrintToChat(iClient, "\x03[CS]\x05 To vote for the next map, type: \x04!mapvote\n           \x05To see all the votes, type: \x04!mapvotes");
+//             }
+//
+//             g_bClientShownVoteAd[iClient] = true;
+//         }
+//     }
+//
+//     return Plugin_Stop;
+// }
 
 // Draw the menu for voting
 public Action VoteMenuDraw(int iClient)

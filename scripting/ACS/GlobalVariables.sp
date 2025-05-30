@@ -38,13 +38,13 @@ float g_fWaitTimeBeforeSwitch[] = {
 #define SOUND_NEW_VOTE_WINNER             "ui/alert_clink.wav"
 
 // Global Variables
-int  g_iRoundEndCounter;                                        // Round end event counter for versus
-bool g_bStopACSChangeMap;                                       //
-bool g_bCanIncrementRoundEndCounter;                            // Prevents incrementing the round end counter twice from multiple event triggers
-int  g_iCoopFailureCount;                                       // Number of times the Survivors have lost the current map
-int  g_iMaxCoopFailures = SETTING_MAX_COOP_FAILURES_DEFAULT;    // Amount of times Survivors can fail before CS switches in coop
-bool g_bFinaleWon;                                              // Indicates whether a finale has be beaten or not
-char g_strMapListFilePath[256] = "";                            // Path of the map file list
+int  g_iRoundEndCounter;                                                                                   // Round end event counter for versus
+bool g_bStopACSChangeMap;                                                                                  //
+bool g_bCanIncrementRoundEndCounter;                                                                       // Prevents incrementing the round end counter twice from multiple event triggers
+int  g_iCoopFailureCount;                                                                                  // Number of times the Survivors have lost the current map
+int  g_coopShowMapVoteMessageAfterFailures = SETTING_COOP_SHOW_MAP_VOTE_MESSAGE_AFTER_FAILURES_DEFAULT;    // Amount of times Survivors can fail before CS switches in coop
+bool g_bFinaleWon;                                                                                         // Indicates whether a finale has be beaten or not
+char g_strMapListFilePath[256] = "";                                                                       // Path of the map file list
 
 // Map List Rotation For All GameModes
 #define MAX_TOTAL_MAP_COUNT   200    // Defines how many maps can be added. Higher values increase memory footprint
@@ -68,21 +68,21 @@ int g_iMapsIndexEndForCurrentGameMode;
 // Voting Variables
 bool   g_bVotingEnabled          = true;                 // Tells if the voting system is on
 int    g_iVotingAdDisplayMode    = DISPLAY_MODE_MENU;    // The way to advertise the voting system
-float  g_fVotingAdDelayTime      = 1.0;                  // Time to wait before showing advertising
+// float  g_fVotingAdDelayTime      = 1.0;                  // Time to wait before showing advertising
 bool   g_bVoteWinnerSoundEnabled = true;                 // Sound plays when vote winner changes
 int    g_iNextMapAdDisplayMode   = DISPLAY_MODE_HINT;    // The way to advertise the next map
-float  g_fNextMapAdInterval      = 600.0;                // Interval for ACS next map advertisement
-bool   g_bClientShownVoteAd[MAXPLAYERS + 1];             // If the client has seen the ad already
-bool   g_bClientVoted[MAXPLAYERS + 1];                   // If the client has voted on a map
-int    g_iClientVote[MAXPLAYERS + 1];                    // The value of the clients vote
-int    g_iWinningMapIndex;                               // Winning map/campaign's index
-int    g_iWinningMapVotes;                               // Winning map/campaign's number of votes
+// float  g_fNextMapAdInterval      = 600.0;                // Interval for ACS next map advertisement
+bool   g_bClientShownVoteAd[MAXPLAYERS + 1];    // If the client has seen the ad already
+bool   g_bClientVoted[MAXPLAYERS + 1];          // If the client has voted on a map
+int    g_iClientVote[MAXPLAYERS + 1];           // The value of the clients vote
+int    g_iWinningMapIndex;                      // Winning map/campaign's index
+int    g_iWinningMapVotes;                      // Winning map/campaign's number of votes
 
 // Console Variables (CVars)
-Handle g_hCVar_VotingEnabled          = INVALID_HANDLE;
-Handle g_hCVar_VoteWinnerSoundEnabled = INVALID_HANDLE;
-Handle g_hCVar_VotingAdMode           = INVALID_HANDLE;
-Handle g_hCVar_VotingAdDelayTime      = INVALID_HANDLE;
-Handle g_hCVar_NextMapAdMode          = INVALID_HANDLE;
-Handle g_hCVar_NextMapAdInterval      = INVALID_HANDLE;
-Handle g_hCVar_MaxFinaleFailures      = INVALID_HANDLE;
+Handle g_hCVar_VotingEnabled                       = INVALID_HANDLE;
+Handle g_hCVar_VoteWinnerSoundEnabled              = INVALID_HANDLE;
+Handle g_hCVar_VotingAdMode                        = INVALID_HANDLE;
+// Handle g_hCVar_VotingAdDelayTime                   = INVALID_HANDLE;
+Handle g_hCVar_NextMapAdMode                       = INVALID_HANDLE;
+// Handle g_hCVar_NextMapAdInterval                   = INVALID_HANDLE;
+Handle g_hCVar_coopShowMapVoteMessageAfterFailures = INVALID_HANDLE;
