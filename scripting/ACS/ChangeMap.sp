@@ -33,7 +33,7 @@ void SetUpMapChange(int iMapIndex)
     // Ensure its a valid map
     if (IsMapIndexValid(iMapIndex) == false)
     {
-        // TODO this will mappen on all coop maps except finales
+        // TODO this will happen on all coop maps except finales
         PrintToChatAll("\x03[CS:error]\x05 could not determine next map, try calling !mapvote");
         LogError("CS Error: SetUpMapChange -> Invalid Map Index! %i", iMapIndex);
         return;

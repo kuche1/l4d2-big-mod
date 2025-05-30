@@ -36,7 +36,7 @@ void WriteDefaultMapListToFile()
     // Check that the path is set up
     if (strlen(g_strMapListFilePath) < 1)
     {
-        LogError("ACS Error: g_strMapListFilePath not set!");
+        LogError("CS Error: g_strMapListFilePath not set!");
         return;
     }
 
@@ -44,7 +44,7 @@ void WriteDefaultMapListToFile()
     Handle hFile = OpenFile(g_strMapListFilePath, "w");
     if (hFile == null)
     {
-        LogError("ACS Error: Unable to open and write to map list file path!");
+        LogError("CS Error: Unable to open and write to map list file path!");
         CloseHandle(hFile);
         return;
     }
