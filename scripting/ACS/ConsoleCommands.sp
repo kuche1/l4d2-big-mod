@@ -12,9 +12,10 @@ void SetupConsoleCommands()
     RegConsoleCmd("acsvote", MapVote);
     RegConsoleCmd("voteacs", MapVote);
     RegConsoleCmd("mapvotes", DisplayCurrentVotes);
-    RegConsoleCmd("acsvotes", DisplayCurrentVotes);
-    RegConsoleCmd("votesacs", DisplayCurrentVotes);
+    // RegConsoleCmd("acsvotes", DisplayCurrentVotes);
+    // RegConsoleCmd("votesacs", DisplayCurrentVotes);
     RegConsoleCmd("votes", DisplayCurrentVotes);
+    RegConsoleCmd("skipchapter", skip_chapter_on_client_vote);
 }
 
 // Command that a player can use to vote/revote for a map/campaign

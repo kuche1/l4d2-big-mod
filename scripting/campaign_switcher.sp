@@ -17,6 +17,7 @@
 #include "ACS/settings.sp"
 
 #include "ACS/GlobalVariables.sp"
+#include "ACS/skip_chapter.sp"
 #include "ACS/MapNames.sp"
 #include "ACS/Advertising.sp"
 #include "ACS/ChangeMap.sp"

@@ -55,6 +55,8 @@ public void OnMapStart()
     g_iCoopFailureCount            = 0;        // Reset the amount of Survivor failures
     g_bFinaleWon                   = false;    // Reset the finale won variable
     ResetAllVotes();                           // Reset every player's vote
+
+    skip_chapter_on_map_start();
 }
 
 // Event fired when the Survivors leave the start area
@@ -83,7 +85,7 @@ public Action Event_RoundEnd(Handle hEvent, const char[] strName, bool bDontBroa
 
                 if ((g_bVotingEnabled == true) && (g_iCoopFailureCount >= g_coopShowMapVoteMessageAfterFailures))
                 {
-                    PrintToChatAll("\x03[CS]\x05 You can use !mapvote to change the campaign");
+                    PrintToChatAll("\x03[CS]\x05 You can use !skipchapter, or !mapvote to change the campaign");
                 }
             }
 
@@ -126,6 +128,8 @@ public Action Event_PlayerDisconnect(Handle hEvent, const char[] strName, bool b
 
     if (iClient < 1)
         return Plugin_Continue;
+
+    skip_chapter_on_client_disconnect(iClient);
 
     // Reset the client's votes
     g_bClientVoted[iClient] = false;

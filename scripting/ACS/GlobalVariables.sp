@@ -45,11 +45,6 @@ int  g_iCoopFailureCount;                                                       
 int  g_coopShowMapVoteMessageAfterFailures = SETTING_COOP_SHOW_MAP_VOTE_MESSAGE_AFTER_FAILURES_DEFAULT;    // Amount of times Survivors can fail before CS switches in coop
 bool g_bFinaleWon;                                                                                         // Indicates whether a finale has be beaten or not
 char g_strMapListFilePath[256] = "";                                                                       // Path of the map file list
-// map rotation
-char g_map_rotation_default[][PLATFORM_MAX_PATH] = SETTING_MAP_ROTATION;
-#define g_map_rotation_default_len (sizeof(g_map_rotation_default)) // ? in sourcepawn `sizeof` gives the array length right away ? or maybe it's because the type is `char` ?
-char g_map_rotation[g_map_rotation_default_len][PLATFORM_MAX_PATH];
-int  g_map_rotation_len = 0;    
 
 // Map List Rotation For All GameModes
 #define MAX_TOTAL_MAP_COUNT   200    // Defines how many maps can be added. Higher values increase memory footprint
