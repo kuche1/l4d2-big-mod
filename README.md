@@ -1,5 +1,7 @@
 # Campaign Switcher
 
+You can skip the current chapter with `!skipchapter`
+
 ## Change log
 
 ###### v3.0.0 (2025-05-30)
@@ -8,6 +10,7 @@
 - Coop: Map change message will appear after N failures, instead of a forced map change
 - Coop: Map will be changed after a failure if a vote had been taken
 - Removed all map advertisements except for the failure message
+- Add !skipchatper command
 
 # Credits
 

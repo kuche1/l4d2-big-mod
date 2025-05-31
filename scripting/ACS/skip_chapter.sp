@@ -70,13 +70,19 @@ Action skip_chapter_on_client_vote(int clint_id, int args)
         return Plugin_Continue;
     }
 
+    if (g_iGameMode != GAMEMODE_COOP) {
+        PrintToChat(clint_id, "\x03[CS]\x05 Skipping chapters is only available for Coop.");
+        return Plugin_Continue;
+    }
+
     char client_name[MAX_NAME_LENGTH];
     if (!GetClientName(clint_id, client_name, sizeof(client_name)))
     {
         return Plugin_Continue;
     }
 
-    g_skip_campaing_votes[clint_id] = true;
+    bool client_reverted_vote = g_skip_campaing_votes[clint_id];
+    g_skip_campaing_votes[clint_id] = !g_skip_campaing_votes[clint_id];
 
     int total_votes = 0;
     for(int vote_idx; vote_idx < g_skip_campaing_votes_len; ++vote_idx){
@@ -85,7 +91,7 @@ Action skip_chapter_on_client_vote(int clint_id, int args)
         }
     }
 
-    int total_players = 0;
+    int total_players = 1;
     for (int cli = 1; cli <= MaxClients; cli++){
         if (!IsClientInGame(cli)) {
             // not yet connected
@@ -102,7 +108,11 @@ Action skip_chapter_on_client_vote(int clint_id, int args)
         total_players += 1;
     }
 
-    PrintToChatAll("\x03[CS]\x05 \x04%s\x05 has voted to skip this chapter (%d/%d)", client_name, total_votes, total_players);
+    if (client_reverted_vote) {
+        PrintToChatAll("\x03[CS]\x05 \x04%s\x05 has reverted their vote to skip this chapter (%d/%d)", client_name, total_votes, total_players);
+    } else {
+        PrintToChatAll("\x03[CS]\x05 \x04%s\x05 has voted to skip this chapter (%d/%d)", client_name, total_votes, total_players);
+    }
 
     if (total_votes < total_players) {
         return Plugin_Continue;
