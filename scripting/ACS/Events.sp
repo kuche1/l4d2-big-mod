@@ -85,7 +85,7 @@ public Action Event_RoundEnd(Handle hEvent, const char[] strName, bool bDontBroa
 
                 if ((g_bVotingEnabled == true) && (g_iCoopFailureCount >= g_coopShowMapVoteMessageAfterFailures))
                 {
-                    PrintToChatAll("\x03[CS]\x05 You can use !skipchapter, or !changecampaign to change the campaign");
+                    PrintToChatAll("\x03[CS]\x05 Note: You can use !skipchapter or !changecampaign to change the map");
                 }
             }
 
