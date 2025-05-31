@@ -33,7 +33,6 @@ void SetUpMapChange(int iMapIndex)
     // Ensure its a valid map
     if (IsMapIndexValid(iMapIndex) == false)
     {
-        // PrintToChatAll("\x03[CS:error]\x05 could not determine next map, try calling !mapvote");
         LogError("CS Error: SetUpMapChange -> Invalid Map Index! %i", iMapIndex);
         return;
     }
@@ -48,7 +47,7 @@ void SetUpMapChange(int iMapIndex)
 // Inform Server and Players that ACS is changing the Map
 Action Timer_PrintChangeMapMessages(Handle timer, int iMapIndex)
 {
-    PrintToServer("\n\n[ACS] Loading %s\n\n", g_strMapListArray[iMapIndex][MAP_LIST_COLUMN_MAP_DESCRIPTION]);
+    PrintToServer("\n\n[CS] Loading %s\n\n", g_strMapListArray[iMapIndex][MAP_LIST_COLUMN_MAP_DESCRIPTION]);
     PrintToChatAll("\x03[CS]\x05 Loading \x04%s", g_strMapListArray[iMapIndex][MAP_LIST_COLUMN_MAP_DESCRIPTION]);
 
     return Plugin_Stop;

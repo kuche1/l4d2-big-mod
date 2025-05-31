@@ -20,8 +20,8 @@
 //             switch (g_iVotingAdDisplayMode)
 //             {
 //                 case DISPLAY_MODE_MENU: VoteMenuDraw(iClient);
-//                 case DISPLAY_MODE_HINT: PrintHintText(iClient, "To vote for the next map, type: !mapvote\nTo see all the votes, type: !mapvotes");
-//                 case DISPLAY_MODE_CHAT: PrintToChat(iClient, "\x03[CS]\x05 To vote for the next map, type: \x04!mapvote\n           \x05To see all the votes, type: \x04!mapvotes");
+//                 case DISPLAY_MODE_HINT: PrintHintText(iClient, "To vote for the next map, type: !changecampaign\nTo see all the votes, type: !mapvotes");
+//                 case DISPLAY_MODE_CHAT: PrintToChat(iClient, "\x03[CS]\x05 To vote for the next map, type: \x04!changecampaign\n           \x05To see all the votes, type: \x04!mapvotes");
 //             }
 //
 //             g_bClientShownVoteAd[iClient] = true;
@@ -87,10 +87,10 @@ public int VoteMenuHandler(Menu menu, MenuAction action, int iClient, int iItemN
 
         // Display the appropriate message to the voter
         if (iItemNum == 0)
-            PrintHintText(iClient, "You did not vote.\nTo vote, type: !mapvote");
+            PrintHintText(iClient, "You did not vote.\nTo vote, type: !changecampaign");
         else
             PrintHintText(iClient,
-                          "You voted for %s.\n- To change your vote, type: !mapvote\n- To see all the votes, type: !mapvotes",
+                          "You voted for %s.\n- To change your vote, type: !changecampaign\n- To see all the votes, type: !mapvotes",
                           g_strMapListArray[g_iMapsIndexStartForCurrentGameMode + iItemNum - 1][MAP_LIST_COLUMN_MAP_DESCRIPTION]);
     }
 }
@@ -168,7 +168,7 @@ void SetTheCurrentVoteWinner()
                     EmitSoundToClient(iPlayer, SOUND_NEW_VOTE_WINNER);
 
         // Show message to all the players of the new vote winner
-        PrintToChatAll("\x03[ACS] \x04%s \x05is now winning the vote.",
+        PrintToChatAll("\x03[CS] \x04%s \x05is now winning the vote.",
                        g_strMapListArray[g_iWinningMapIndex][MAP_LIST_COLUMN_MAP_DESCRIPTION]);
     }
 }

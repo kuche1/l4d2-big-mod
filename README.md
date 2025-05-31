@@ -1,6 +1,10 @@
 # Campaign Switcher
 
-You can skip the current chapter with `!skipchapter`
+Skip the current chapter with `!skipchapter`
+
+Change the current campaign with `!changecampaign`
+
+Show the current votes with `!mapvotes`
 
 ## Change log
 
@@ -11,6 +15,7 @@ You can skip the current chapter with `!skipchapter`
 - Coop: Map will be changed after a failure if a vote had been taken
 - Removed all map advertisements except for the failure message
 - Add !skipchatper command
+- Rename !mapvote to !changecampaign
 
 # Credits
 
@@ -50,13 +55,6 @@ Simply drag the .smx file into your plugin folder. Your plugin folder will likel
 - Supports dynamic gamemode switching.
   - In other words, ACS will still work if the server switches to another game mode without restarting or shutting down the server.
 - You can limit the amount of failures during a Coop campaign finale map before ACS will switch to the next campaign.
-
-
-## Player Commands
-
-`!mapvote` - Allows any player to vote and revote for the next campaign to play \
-`!mapvotes` - Displays to the player the current vote winner as well as all of the current votes
-
 
 ## Customizing ACS
 

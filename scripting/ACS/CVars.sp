@@ -35,14 +35,14 @@ void CVarChange_Voting(Handle hCVar, const char[] strOldValue, const char[] strN
     if (StringToInt(strNewValue) == 1)
     {
         g_bVotingEnabled = true;
-        PrintToServer("[ACS] ConVar changed: Voting System ENABLED");
-        PrintToChatAll("[ACS] ConVar changed: Voting System ENABLED");
+        PrintToServer("[CS] ConVar changed: Voting System ENABLED");
+        PrintToChatAll("[CS] ConVar changed: Voting System ENABLED");
     }
     else
     {
         g_bVotingEnabled = false;
-        PrintToServer("[ACS] ConVar changed: Voting System DISABLED");
-        PrintToChatAll("[ACS] ConVar changed: Voting System DISABLED");
+        PrintToServer("[CS] ConVar changed: Voting System DISABLED");
+        PrintToChatAll("[CS] ConVar changed: Voting System DISABLED");
     }
 }
 
@@ -57,14 +57,14 @@ void CVarChange_NewVoteWinnerSound(Handle hCVar, const char[] strOldValue, const
     if (StringToInt(strNewValue) == 1)
     {
         g_bVoteWinnerSoundEnabled = true;
-        PrintToServer("[ACS] ConVar changed: New vote winner sound ENABLED");
-        PrintToChatAll("[ACS] ConVar changed: New vote winner sound ENABLED");
+        PrintToServer("[CS] ConVar changed: New vote winner sound ENABLED");
+        PrintToChatAll("[CS] ConVar changed: New vote winner sound ENABLED");
     }
     else
     {
         g_bVoteWinnerSoundEnabled = false;
-        PrintToServer("[ACS] ConVar changed: New vote winner sound DISABLED");
-        PrintToChatAll("[ACS] ConVar changed: New vote winner sound DISABLED");
+        PrintToServer("[CS] ConVar changed: New vote winner sound DISABLED");
+        PrintToChatAll("[CS] ConVar changed: New vote winner sound DISABLED");
     }
 }
 
@@ -81,26 +81,26 @@ void CVarChange_NewVoteWinnerSound(Handle hCVar, const char[] strOldValue, const
 //         case 0:
 //         {
 //             g_iVotingAdDisplayMode = DISPLAY_MODE_DISABLED;
-//             PrintToServer("[ACS] ConVar changed: Voting display mode: DISABLED");
-//             PrintToChatAll("[ACS] ConVar changed: Voting display mode: DISABLED");
+//             PrintToServer("[CS] ConVar changed: Voting display mode: DISABLED");
+//             PrintToChatAll("[CS] ConVar changed: Voting display mode: DISABLED");
 //         }
 //         case 1:
 //         {
 //             g_iVotingAdDisplayMode = DISPLAY_MODE_HINT;
-//             PrintToServer("[ACS] ConVar changed: Voting display mode: HINT TEXT");
-//             PrintToChatAll("[ACS] ConVar changed: Voting display mode: HINT TEXT");
+//             PrintToServer("[CS] ConVar changed: Voting display mode: HINT TEXT");
+//             PrintToChatAll("[CS] ConVar changed: Voting display mode: HINT TEXT");
 //         }
 //         case 2:
 //         {
 //             g_iVotingAdDisplayMode = DISPLAY_MODE_CHAT;
-//             PrintToServer("[ACS] ConVar changed: Voting display mode: CHAT TEXT");
-//             PrintToChatAll("[ACS] ConVar changed: Voting display mode: CHAT TEXT");
+//             PrintToServer("[CS] ConVar changed: Voting display mode: CHAT TEXT");
+//             PrintToChatAll("[CS] ConVar changed: Voting display mode: CHAT TEXT");
 //         }
 //         case 3:
 //         {
 //             g_iVotingAdDisplayMode = DISPLAY_MODE_MENU;
-//             PrintToServer("[ACS] ConVar changed: Voting display mode: OPEN VOTE MENU");
-//             PrintToChatAll("[ACS] ConVar changed: Voting display mode: OPEN VOTE MENU");
+//             PrintToServer("[CS] ConVar changed: Voting display mode: OPEN VOTE MENU");
+//             PrintToChatAll("[CS] ConVar changed: Voting display mode: OPEN VOTE MENU");
 //         }
 //     }
 // }
@@ -119,14 +119,14 @@ void CVarChange_NewVoteWinnerSound(Handle hCVar, const char[] strOldValue, const
 //     if (fDelayTime > 0.1)
 //     {
 //         g_fVotingAdDelayTime = fDelayTime;
-//         PrintToServer("[ACS] ConVar changed: Voting advertisement delay time changed to %f", fDelayTime);
-//         PrintToChatAll("[ACS] ConVar changed: Voting advertisement delay time changed to %f", fDelayTime);
+//         PrintToServer("[CS] ConVar changed: Voting advertisement delay time changed to %f", fDelayTime);
+//         PrintToChatAll("[CS] ConVar changed: Voting advertisement delay time changed to %f", fDelayTime);
 //     }
 //     else
 //     {
 //         g_fVotingAdDelayTime = 0.1;
-//         PrintToServer("[ACS] ConVar changed: Voting advertisement delay time changed to 0.1");
-//         PrintToChatAll("[ACS] ConVar changed: Voting advertisement delay time changed to 0.1");
+//         PrintToServer("[CS] ConVar changed: Voting advertisement delay time changed to 0.1");
+//         PrintToChatAll("[CS] ConVar changed: Voting advertisement delay time changed to 0.1");
 //     }
 // }
 
@@ -143,20 +143,20 @@ void CVarChange_NewVoteWinnerSound(Handle hCVar, const char[] strOldValue, const
 //         case 0:
 //         {
 //             g_iNextMapAdDisplayMode = DISPLAY_MODE_DISABLED;
-//             PrintToServer("[ACS] ConVar changed: Next map advertisement display mode: DISABLED");
-//             PrintToChatAll("[ACS] ConVar changed: Next map advertisement display mode: DISABLED");
+//             PrintToServer("[CS] ConVar changed: Next map advertisement display mode: DISABLED");
+//             PrintToChatAll("[CS] ConVar changed: Next map advertisement display mode: DISABLED");
 //         }
 //         case 1:
 //         {
 //             g_iNextMapAdDisplayMode = DISPLAY_MODE_HINT;
-//             PrintToServer("[ACS] ConVar changed: Next map advertisement display mode: HINT TEXT");
-//             PrintToChatAll("[ACS] ConVar changed: Next map advertisement display mode: HINT TEXT");
+//             PrintToServer("[CS] ConVar changed: Next map advertisement display mode: HINT TEXT");
+//             PrintToChatAll("[CS] ConVar changed: Next map advertisement display mode: HINT TEXT");
 //         }
 //         case 2:
 //         {
 //             g_iNextMapAdDisplayMode = DISPLAY_MODE_CHAT;
-//             PrintToServer("[ACS] ConVar changed: Next map advertisement display mode: CHAT TEXT");
-//             PrintToChatAll("[ACS] ConVar changed: Next map advertisement display mode: CHAT TEXT");
+//             PrintToServer("[CS] ConVar changed: Next map advertisement display mode: CHAT TEXT");
+//             PrintToChatAll("[CS] ConVar changed: Next map advertisement display mode: CHAT TEXT");
 //         }
 //     }
 // }
@@ -175,14 +175,14 @@ void CVarChange_NewVoteWinnerSound(Handle hCVar, const char[] strOldValue, const
 //     if (fDelayTime > 60.0)
 //     {
 //         g_fNextMapAdInterval = fDelayTime;
-//         PrintToServer("[ACS] ConVar changed: Next map advertisement interval changed to %f", fDelayTime);
-//         PrintToChatAll("[ACS] ConVar changed: Next map advertisement interval changed to %f", fDelayTime);
+//         PrintToServer("[CS] ConVar changed: Next map advertisement interval changed to %f", fDelayTime);
+//         PrintToChatAll("[CS] ConVar changed: Next map advertisement interval changed to %f", fDelayTime);
 //     }
 //     else
 //     {
 //         g_fNextMapAdInterval = 60.0;
-//         PrintToServer("[ACS] ConVar changed: Next map advertisement interval changed to 60.0");
-//         PrintToChatAll("[ACS] ConVar changed: Next map advertisement interval changed to 60.0");
+//         PrintToServer("[CS] ConVar changed: Next map advertisement interval changed to 60.0");
+//         PrintToChatAll("[CS] ConVar changed: Next map advertisement interval changed to 60.0");
 //     }
 // }
 

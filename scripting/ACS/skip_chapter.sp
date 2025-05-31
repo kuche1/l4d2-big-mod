@@ -91,7 +91,7 @@ Action skip_chapter_on_client_vote(int clint_id, int args)
         }
     }
 
-    int total_players = 1;
+    int total_players = 0;
     for (int cli = 1; cli <= MaxClients; cli++){
         if (!IsClientInGame(cli)) {
             // not yet connected
