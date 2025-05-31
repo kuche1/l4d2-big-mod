@@ -6,7 +6,8 @@
 
 - Coop: Map voting is no longer limited to Finale maps
 - Coop: Map change message will appear after N failures, instead of a forced map change
-- Coop: Map will be changed after a failure if a vete had been taken
+- Coop: Map will be changed after a failure if a vote had been taken
+- Removed all map advertisements except for the failure message
 
 # Credits
 
