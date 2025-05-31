@@ -1,5 +1,7 @@
 @echo off
 
+rem I have not touched this file since forking the original project
+
 rem This batch file is a 1 click build and copy acs.smx
 rem To make copy work for you:
 rem 1) Change the path(s) below to what you need

@@ -13,7 +13,7 @@ HERE=$(dirname -- "$ME")
     cd "$HERE"
 
     # compile ACS
-    ./../sourcemod/addons/sourcemod/scripting/spcomp ./campaign_switcher.sp -v:0
+    ./sourcemod/addons/sourcemod/scripting/spcomp ./scripting/campaign_switcher.sp -v:0
 
     cd -
 }
