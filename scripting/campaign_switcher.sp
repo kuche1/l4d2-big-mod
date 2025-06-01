@@ -43,8 +43,6 @@ public Plugin myinfo =
     description = "Allows for voting for campaigns",
     version     = PLUGIN_VERSION,
     url         = "https://github.com/kuche1/l4d2-campaign-swtcher"
-
-
 }
 
 public void OnPluginStart()
