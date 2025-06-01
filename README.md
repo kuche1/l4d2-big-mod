@@ -14,17 +14,20 @@ Place the `.smx` file into the `left4dead2\addons\sourcemod\plugins` folder
 
 ## Change log
 
-###### v3.0.0-c (2025-06-01)
+###### v3.1 (2025-06-01)
 
 - Rename !mapvotes to !campaignvotes
+- Coop failures now properly restart if all players leave
+- Changed versioning semantics
+- Config files now only specify the plugin's major version, followed by the config item
 
-###### v3.0.0-b (2025-05-31)
+###### v3.0.1 (2025-05-31)
 
 - Add !skipchatper command
 - Rename !mapvote to !changecampaign
 - Failure message now appears after a set numbere of failures
 
-###### v3.0.0-a (2025-05-30)
+###### v3.0.0 (2025-05-30)
 
 - Change changelog format
 - Coop: Map voting is no longer limited to Finale maps

@@ -26,7 +26,7 @@ public void OnMapStart()
 {
     // Execute config file
     char strFileName[64];
-    Format(strFileName, sizeof(strFileName), "Campaign_Switcher_%s", PLUGIN_VERSION);
+    Format(strFileName, sizeof(strFileName), "Campaign_Switcher_%s", PLUGIN_VERSION_MAJOR);
     AutoExecConfig(true, strFileName);
 
     // Check if the Maps List File has changed, if so reload it into the Map List Array
@@ -83,11 +83,13 @@ public Action Event_RoundEnd(Handle hEvent, const char[] strName, bool bDontBroa
             {
                 coop_failure_counter_on_coop_failure();
 
-                // PrintToChatAll("\x03[CS]\x05 Failure Count: %d", coop_failure_counter_get_count());
+                int failure_count = coop_failure_counter_get_count();
+
+                // PrintToChatAll("\x03[CS]\x05 dbg: Failure Count: %d", failure_count);
 
                 if (g_bVotingEnabled == true)
                 {
-                    if (coop_failure_counter_get_count() >= g_coopShowMapVoteMessageAfterFailures)
+                    if (failure_count >= g_coopShowMapVoteMessageAfterFailures)
                     {
                         PrintToChatAll("\x03[CS]\x05 Note: You can use !skipchapter or !changecampaign to change the map");
                     }
@@ -134,7 +136,8 @@ public Action Event_PlayerDisconnect(Handle hEvent, const char[] strName, bool b
     if (iClient < 1)
         return Plugin_Continue;
 
-    skip_chapter_on_client_disconnect(iClient);
+    coop_failure_counter_on_before_player_disconnect();
+    skip_chapter_on_before_client_disconnect(iClient);
 
     // Reset the client's votes
     g_bClientVoted[iClient] = false;

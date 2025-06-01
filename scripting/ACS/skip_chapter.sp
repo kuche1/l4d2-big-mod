@@ -91,22 +91,7 @@ Action skip_chapter_on_client_vote(int clint_id, int args)
         }
     }
 
-    int total_players = 0;
-    for (int cli = 1; cli <= MaxClients; cli++){
-        if (!IsClientInGame(cli)) {
-            // not yet connected
-            continue;
-        }
-        if (IsFakeClient(cli)) {
-            // bot
-            continue;
-        }
-        if (GetClientTeam(cli) == 1) {
-            // spectator // I have not actually tested this but it should be correct
-            continue;
-        }
-        total_players += 1;
-    }
+    int total_players = get_active_players();
 
     if (client_reverted_vote) {
         PrintToChatAll("\x03[CS]\x05 \x04%s\x05 has reverted their vote to skip this chapter (%d/%d)", client_name, total_votes, total_players);
@@ -152,7 +137,7 @@ Action skip_chapter_on_client_vote(int clint_id, int args)
     return Plugin_Continue;
 }
 
-void skip_chapter_on_client_disconnect(int client_id)
+void skip_chapter_on_before_client_disconnect(int client_id)
 {
     g_skip_campaing_votes[client_id] = false;
 }

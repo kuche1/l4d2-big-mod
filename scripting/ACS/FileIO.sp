@@ -18,7 +18,7 @@ void CreateNewMapListFileIfDoesNotExist()
 void SetACSMapListFilePath()
 {
     char map_list_file_path[64];
-    Format(map_list_file_path, sizeof(map_list_file_path), "configs/Campaign_Switcher_Map_List_%s.txt", PLUGIN_VERSION);
+    Format(map_list_file_path, sizeof(map_list_file_path), "configs/Campaign_Switcher_%s_Map_List.txt", PLUGIN_VERSION_MAJOR);
 
     BuildPath(Path_SM, g_strMapListFilePath, PLATFORM_MAX_PATH, map_list_file_path);
 }

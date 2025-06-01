@@ -1,17 +1,25 @@
 
-int g_coop_failure_count = 0;
+int coop_failure_counter_g_failure_count = 0;
 
 void coop_failure_counter_on_map_start()
 {
-    g_coop_failure_count = 0;
+    coop_failure_counter_g_failure_count = 0;
 }
 
 void coop_failure_counter_on_coop_failure()
 {
-    g_coop_failure_count += 1;
+    coop_failure_counter_g_failure_count += 1;
 }
 
 int coop_failure_counter_get_count()
 {
-    return g_coop_failure_count;
+    return coop_failure_counter_g_failure_count;
+}
+
+void coop_failure_counter_on_before_player_disconnect()
+{
+    if (get_active_players() <= 1) // `1` -> player not yet fully disconnected
+    {
+        coop_failure_counter_g_failure_count = 0;
+    }
 }
