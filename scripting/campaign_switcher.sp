@@ -15,12 +15,14 @@
 #include <sourcemod>
 #include <sdktools>
 
-#include "ACS/settings.sp"
+#include "CS/settings.sp"
 
-#include "ACS/get_active_players.sp"
-#include "ACS/coop_failure_counter.sp"
 #include "ACS/GlobalVariables.sp"
-#include "ACS/skip_chapter.sp"
+
+#include "CS/skip_chapter.sp"
+#include "CS/coop_failure_counter.sp"
+#include "CS/get_active_players.sp"
+
 #include "ACS/MapNames.sp"
 #include "ACS/Advertising.sp"
 #include "ACS/ChangeMap.sp"
