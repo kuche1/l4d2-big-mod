@@ -30,7 +30,7 @@
         /* custom: nightmare */ \
         \
         "nmrm1_apartment", "nmrm2_subway", "nmrm3_sewers", "nmrm4_hospital", "nmrm5_rooftop", /* No Mercy: Rehab */ \
-        "c1m1d_hotel", "c1m2d_streets", "c1m3d_mall", "c1m4d_atrium",  /* dark center */ \
+        "c1m1d_hotel", "c1m2d_streets", "c1m3d_mall", "c1m4d_atrium",  /* Dark Center */ \
         "deadbeat01_forest", "deadbeat02_alley", "deadbeat03_street", "deadbeat04_park", /* Deadbeat Escape */ \
         "c5m1_darkwaterfront", "c5m2_darkpark", "c5m3_darkcemetery", "c5m4_darkquarter", "c5m5_darkbridge", /* The Dark Parish */ \
         "ft_m1_apartments_08_a", "ft_m2_subway_08_a", "ft_m3_sewers_08_b", "ft_m4_hospital_08_a", "ft_m5_rooftop_08_a", /* Fairfield Terror */ \
