@@ -16,6 +16,7 @@
 
 #include "ACS/settings.sp"
 
+#include "ACS/coop_failure_counter.sp"
 #include "ACS/GlobalVariables.sp"
 #include "ACS/skip_chapter.sp"
 #include "ACS/MapNames.sp"
@@ -42,8 +43,7 @@ public Plugin myinfo =
 
 }
 
-public void
-    OnPluginStart()
+public void OnPluginStart()
 {
     // Create the map list file if there its not there already
     CreateNewMapListFileIfDoesNotExist();
@@ -63,3 +63,11 @@ public void
     // Repeating Timers
     // CreateTimer(g_fNextMapAdInterval, Timer_AdvertiseNextMap, _, TIMER_REPEAT);
 }
+
+// public Action test_Event_RoundStart(Handle hEvent, const char[] strName, bool bDontBroadcast)
+// {
+//     static int a = 0;
+//     PrintToChatAll("\x03[CS]\x05 test: round start: a=%d", a);
+//     a += 1;
+//     return Plugin_Continue;
+// }

@@ -41,7 +41,6 @@ float g_fWaitTimeBeforeSwitch[] = {
 int  g_iRoundEndCounter;                                                                                   // Round end event counter for versus
 bool g_bStopACSChangeMap;                                                                                  //
 bool g_bCanIncrementRoundEndCounter;                                                                       // Prevents incrementing the round end counter twice from multiple event triggers
-int  g_iCoopFailureCount;                                                                                  // Number of times the Survivors have lost the current map
 int  g_coopShowMapVoteMessageAfterFailures = SETTING_COOP_SHOW_MAP_VOTE_MESSAGE_AFTER_FAILURES_DEFAULT;    // Amount of times Survivors can fail before CS switches in coop
 bool g_bFinaleWon;                                                                                         // Indicates whether a finale has be beaten or not
 char g_strMapListFilePath[256] = "";                                                                       // Path of the map file list

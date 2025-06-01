@@ -9,6 +9,8 @@ void SetUpEvents()
     HookEvent("round_end", Event_RoundEnd);
     HookEvent("finale_win", Event_FinaleWin);
     HookEvent("player_disconnect", Event_PlayerDisconnect);
+    // HookEvent("round_start", test_Event_RoundStart);
+
 
     // This one is important. It is used to intercept the end of game vote panel
     // as well as capture when the map should be switched for all the game modes other
@@ -52,11 +54,11 @@ public void OnMapStart()
 
     g_iRoundEndCounter             = 0;    // Reset the round end counter on every map start
     g_bCanIncrementRoundEndCounter = true;
-    g_iCoopFailureCount            = 0;        // Reset the amount of Survivor failures
     g_bFinaleWon                   = false;    // Reset the finale won variable
     ResetAllVotes();                           // Reset every player's vote
 
     skip_chapter_on_map_start();
+    coop_failure_counter_on_map_start();
 }
 
 // Event fired when the Survivors leave the start area
@@ -79,13 +81,16 @@ public Action Event_RoundEnd(Handle hEvent, const char[] strName, bool bDontBroa
         {
             if (g_bFinaleWon == false)
             {
-                g_iCoopFailureCount += 1;
+                coop_failure_counter_on_coop_failure();
 
-                // PrintToChatAll("\x03[CS]\x05 Failure Count: %d", g_iCoopFailureCount);
+                // PrintToChatAll("\x03[CS]\x05 Failure Count: %d", coop_failure_counter_get_count());
 
-                if ((g_bVotingEnabled == true) && (g_iCoopFailureCount >= g_coopShowMapVoteMessageAfterFailures))
+                if (g_bVotingEnabled == true)
                 {
-                    PrintToChatAll("\x03[CS]\x05 Note: You can use !skipchapter or !changecampaign to change the map");
+                    if (coop_failure_counter_get_count() >= g_coopShowMapVoteMessageAfterFailures)
+                    {
+                        PrintToChatAll("\x03[CS]\x05 Note: You can use !skipchapter or !changecampaign to change the map");
+                    }
                 }
             }
 

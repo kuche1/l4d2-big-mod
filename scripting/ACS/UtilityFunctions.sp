@@ -8,25 +8,25 @@ bool IsGameModeValid(int iGameMode)
 	return false;
 }
 
-// Check if the current map is the last in the campaign if not in the Scavenge game mode
-bool OnFinaleOrScavengeOrSurvivalMap()
-{
-	if (g_iGameMode == GAMEMODE_SCAVENGE ||
-		g_iGameMode == GAMEMODE_SURVIVAL ||
-		g_iGameMode == GAMEMODE_VERSUS_SURVIVAL)
-		return true;
-	
-	// Get the current map from the game
-	char strCurrentMap[32];
-	GetCurrentMap(strCurrentMap,32);
-
-	// Run through all the maps, if the current map is a last campaign map, return true
-	for (int iMapIndex = g_iMapsIndexStartForCurrentGameMode; iMapIndex <= g_iMapsIndexEndForCurrentGameMode; iMapIndex++)
-		if (StrEqual(strCurrentMap, g_strMapListArray[iMapIndex][MAP_LIST_COLUMN_MAP_NAME_END], false) == true)
-			return true;
-	
-	return false;
-}
+// // Check if the current map is the last in the campaign if not in the Scavenge game mode
+// bool OnFinaleOrScavengeOrSurvivalMap()
+// {
+// 	if (g_iGameMode == GAMEMODE_SCAVENGE ||
+// 		g_iGameMode == GAMEMODE_SURVIVAL ||
+// 		g_iGameMode == GAMEMODE_VERSUS_SURVIVAL)
+// 		return true;
+// 	
+// 	// Get the current map from the game
+// 	char strCurrentMap[32];
+// 	GetCurrentMap(strCurrentMap,32);
+// 
+// 	// Run through all the maps, if the current map is a last campaign map, return true
+// 	for (int iMapIndex = g_iMapsIndexStartForCurrentGameMode; iMapIndex <= g_iMapsIndexEndForCurrentGameMode; iMapIndex++)
+// 		if (StrEqual(strCurrentMap, g_strMapListArray[iMapIndex][MAP_LIST_COLUMN_MAP_NAME_END], false) == true)
+// 			return true;
+// 	
+// 	return false;
+// }
 
 // Check that the map index corresponds to an actual valid map
 bool IsMapIndexValid(int iMapIndex)

@@ -11,7 +11,7 @@ void SetupConsoleCommands()
     // RegConsoleCmd("acs", MapVote);
     // RegConsoleCmd("acsvote", MapVote);
     // RegConsoleCmd("voteacs", MapVote);
-    RegConsoleCmd("mapvotes", DisplayCurrentVotes);
+    RegConsoleCmd("campaignvotes", DisplayCurrentVotes);
     // RegConsoleCmd("acsvotes", DisplayCurrentVotes);
     // RegConsoleCmd("votesacs", DisplayCurrentVotes);
     // RegConsoleCmd("votes", DisplayCurrentVotes);

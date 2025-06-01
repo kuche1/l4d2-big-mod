@@ -20,8 +20,8 @@
 //             switch (g_iVotingAdDisplayMode)
 //             {
 //                 case DISPLAY_MODE_MENU: VoteMenuDraw(iClient);
-//                 case DISPLAY_MODE_HINT: PrintHintText(iClient, "To vote for the next map, type: !changecampaign\nTo see all the votes, type: !mapvotes");
-//                 case DISPLAY_MODE_CHAT: PrintToChat(iClient, "\x03[CS]\x05 To vote for the next map, type: \x04!changecampaign\n           \x05To see all the votes, type: \x04!mapvotes");
+//                 case DISPLAY_MODE_HINT: PrintHintText(iClient, "To vote for the next map, type: !changecampaign\nTo see all the votes, type: !campaignvotes");
+//                 case DISPLAY_MODE_CHAT: PrintToChat(iClient, "\x03[CS]\x05 To vote for the next map, type: \x04!changecampaign\n           \x05To see all the votes, type: \x04!campaignvotes");
 //             }
 //
 //             g_bClientShownVoteAd[iClient] = true;
@@ -90,7 +90,7 @@ public int VoteMenuHandler(Menu menu, MenuAction action, int iClient, int iItemN
             PrintHintText(iClient, "You did not vote.\nTo vote, type: !changecampaign");
         else
             PrintHintText(iClient,
-                          "You voted for %s.\n- To change your vote, type: !changecampaign\n- To see all the votes, type: !mapvotes",
+                          "You voted for %s.\n- To change your vote, type: !changecampaign\n- To see all the votes, type: !campaignvotes",
                           g_strMapListArray[g_iMapsIndexStartForCurrentGameMode + iItemNum - 1][MAP_LIST_COLUMN_MAP_DESCRIPTION]);
     }
 }
