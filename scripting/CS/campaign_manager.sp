@@ -114,7 +114,7 @@ void campaign_manager_FNC_init(){
                 char _map_fuzzyfind[PLATFORM_MAX_PATH];
                 if (FindMap(campaign_manager_DEFAULTDB_maps[defaultdb_idx], _map_fuzzyfind, sizeof(_map_fuzzyfind)) == FindMap_Found){
 
-                    PrintToServer("[CS] adding map to active rotation -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
+                    PrintToServer("[CS] map checked -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
 
                     campaign_manager_MEM[campaign_manager_MEM_len] = campaign_manager_DEFAULTDB_maps[defaultdb_idx];
                     campaign_manager_MEM_len += 1;
@@ -167,9 +167,17 @@ void campaign_manager_FNC_init(){
 }
 
 void campaign_manager_FNC_print_campaigns(){
-    for(int idx=0; idx<campaign_manager_DB_campaigns_len; ++idx){
-        int ptr_name = campaign_manager_DB_campaigns[idx].ptr_name;
-        PrintToChatAll("[CS] test: %s", campaign_manager_MEM[ptr_name]);
+    for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){
+        int ptr_name = campaign_manager_DB_campaigns[campaign_idx].ptr_name;
+        int ptr_chapters = campaign_manager_DB_campaigns[campaign_idx].ptr_chapters;
+        int num_chapters = campaign_manager_DB_campaigns[campaign_idx].num_chapters;
+
+        PrintToChatAll("[CS] test: Campaign: %s", campaign_manager_MEM[ptr_name]);
+
+        for(int chapter_idx=0; chapter_idx<num_chapters; ++chapter_idx){
+            int ptr_chapter = ptr_chapters + chapter_idx;
+            PrintToChatAll("[CS] test: Chapter: %s", campaign_manager_MEM[ptr_chapter]);
+        }
     }
 }
 
