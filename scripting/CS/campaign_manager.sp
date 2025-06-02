@@ -27,14 +27,14 @@ char campaign_manager_DEFAULTDB_maps[][PLATFORM_MAX_PATH] = {
     "@The Parish", "c5m1_waterfront", "c5m2_park", "c5m3_cemetery", "c5m4_quarter", "c5m5_bridge",
     "@Cold Stream", "c13m1_alpinecreek", "c13m2_southpinestream", "c13m3_memorialbridge", "c13m4_cutthroatcreek",
     "",
-    "# Custom: Nightmare",
+    "# Addon: Nightmare",
     "",
-    "@No Mercy: Rehab", "nmrm1_apartment", "nmrm2_subway", "nmrm3_sewers", "nmrm4_hospital", "nmrm5_rooftop",
-    "@Dark Center", "c1m1d_hotel", "c1m2d_streets", "c1m3d_mall", "c1m4d_atrium",
-    "@Deadbeat Escape", "deadbeat01_forest", "deadbeat02_alley", "deadbeat03_street", "deadbeat04_park",
-    "@The Dark Parish", "c5m1_darkwaterfront", "c5m2_darkpark", "c5m3_darkcemetery", "c5m4_darkquarter", "c5m5_darkbridge",
-    "@Fairfield Terror", "ft_m1_apartments_08_a", "ft_m2_subway_08_a", "ft_m3_sewers_08_b", "ft_m4_hospital_08_a", "ft_m5_rooftop_08_a",
-    "@Hopeless", "hopeless_m1", "hopeless_m2", "hopeless_m3",
+    "@[addon] No Mercy: Rehab", "nmrm1_apartment", "nmrm2_subway", "nmrm3_sewers", "nmrm4_hospital", "nmrm5_rooftop",
+    "@[addon] Dark Center", "c1m1d_hotel", "c1m2d_streets", "c1m3d_mall", "c1m4d_atrium",
+    "@[addon] Deadbeat Escape", "deadbeat01_forest", "deadbeat02_alley", "deadbeat03_street", "deadbeat04_park",
+    "@[addon] The Dark Parish", "c5m1_darkwaterfront", "c5m2_darkpark", "c5m3_darkcemetery", "c5m4_darkquarter", "c5m5_darkbridge",
+    "@[addon] Fairfield Terror", "ft_m1_apartments_08_a", "ft_m2_subway_08_a", "ft_m3_sewers_08_b", "ft_m4_hospital_08_a", "ft_m5_rooftop_08_a",
+    "@[addon] Hopeless", "hopeless_m1", "hopeless_m2", "hopeless_m3",
 };
 
 #define campaign_manager_DEFAULTDB_maps_len (sizeof(campaign_manager_DEFAULTDB_maps))
@@ -196,23 +196,23 @@ void campaign_manager_FNC_init(){
 //     return Plugin_Continue;
 // }
 
-void campaign_manager_FNC_print_campaigns(){
-    for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){
-        #define campaign (campaign_manager_DB_campaigns[campaign_idx])
-
-        int ptr_chapters = campaign.get_ptr_chapters();
-        int num_chapters = campaign.get_num_chapters();
-
-        PrintToChatAll("[CS] test: Campaign: %s", campaign.get_name());
-
-        for(int chapter_idx=0; chapter_idx<num_chapters; ++chapter_idx){
-            int ptr_chapter = ptr_chapters + chapter_idx;
-            PrintToChatAll("[CS] test: Chapter: %s", campaign_manager_MEM[ptr_chapter]);
-        }
-
-        #undef campaign
-    }
-}
+// void campaign_manager_FNC_print_campaigns(){
+//     for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){
+//         #define campaign (campaign_manager_DB_campaigns[campaign_idx])
+// 
+//         int ptr_chapters = campaign.get_ptr_chapters();
+//         int num_chapters = campaign.get_num_chapters();
+// 
+//         PrintToChatAll("[CS] test: Campaign: %s", campaign.get_name());
+// 
+//         for(int chapter_idx=0; chapter_idx<num_chapters; ++chapter_idx){
+//             int ptr_chapter = ptr_chapters + chapter_idx;
+//             PrintToChatAll("[CS] test: Chapter: %s", campaign_manager_MEM[ptr_chapter]);
+//         }
+// 
+//         #undef campaign
+//     }
+// }
 
 void campaign_manager_FNC_skip_chapter(){
     char current_map[PLATFORM_MAX_PATH];

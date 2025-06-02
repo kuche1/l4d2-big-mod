@@ -192,28 +192,28 @@ public void PrintTheCurrentMapListArrayInfo()
         PrintToServer(" %3i: %s", i, strBuffer);
     }
 
-    PrintToServer(" =======================================================================================");
-
-    PrintToServer("number of maps in default rotation: %d", g_map_rotation_default_len);
-
-    for (int default_map_idx = 0; default_map_idx < g_map_rotation_default_len; ++default_map_idx)
-    {
-        // char default_map[PLATFORM_MAX_PATH] = g_map_rotation_default[default_map_idx];
-        // IDK why but sourcepawn doesn't let me do this ^^^
-        #define default_map (g_map_rotation_default[default_map_idx])
-
-        char _map_fuzzyfind[PLATFORM_MAX_PATH];
-        if (FindMap(default_map, _map_fuzzyfind, sizeof(_map_fuzzyfind)) == FindMap_Found){
-            PrintToServer("default rotation map found, adding to active rotation -> %s", default_map);
-
-            g_map_rotation[g_map_rotation_len] = default_map;
-            g_map_rotation_len += 1;
-        }else{
-            PrintToServer("default rotation map missing, ignoring -> %s", default_map);
-        }
-
-        #undef default_map
-    }
+//     PrintToServer(" =======================================================================================");
+// 
+//     PrintToServer("number of maps in default rotation: %d", g_map_rotation_default_len);
+// 
+//     for (int default_map_idx = 0; default_map_idx < g_map_rotation_default_len; ++default_map_idx)
+//     {
+//         // char default_map[PLATFORM_MAX_PATH] = g_map_rotation_default[default_map_idx];
+//         // IDK why but sourcepawn doesn't let me do this ^^^
+//         #define default_map (g_map_rotation_default[default_map_idx])
+// 
+//         char _map_fuzzyfind[PLATFORM_MAX_PATH];
+//         if (FindMap(default_map, _map_fuzzyfind, sizeof(_map_fuzzyfind)) == FindMap_Found){
+//             PrintToServer("default rotation map found, adding to active rotation -> %s", default_map);
+// 
+//             g_map_rotation[g_map_rotation_len] = default_map;
+//             g_map_rotation_len += 1;
+//         }else{
+//             PrintToServer("default rotation map missing, ignoring -> %s", default_map);
+//         }
+// 
+//         #undef default_map
+//     }
 
     PrintToServer(" =======================================================================================\n");
 }

@@ -20,7 +20,7 @@
 #include "ACS/GlobalVariables.sp"
 
 // TODO rename `CS` to `cs`
-#include "CS/skip_chapter.sp"
+// #include "CS/skip_chapter.sp"
 #include "CS/coop_failure_counter.sp"
 #include "CS/get_active_players.sp"
 #include "CS/campaign_manager.sp"
@@ -45,7 +45,7 @@ public Plugin myinfo =
     author      = "kuche1",
     description = "Allows for voting for campaigns",
     version     = PLUGIN_VERSION,
-    url         = "https://github.com/kuche1/l4d2-campaign-swtcher"
+    url         = "https://github.com/kuche1/l4d2-campaign-swtcher",
 }
 
 public void OnPluginStart()
