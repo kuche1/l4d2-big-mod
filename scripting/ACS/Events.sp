@@ -57,7 +57,7 @@ public void OnMapStart()
     g_bFinaleWon                   = false;    // Reset the finale won variable
     ResetAllVotes();                           // Reset every player's vote
 
-    skip_chapter_on_map_start();
+    // skip_chapter_on_map_start();
     coop_failure_counter_on_map_start();
     campaign_manager_ON_map_start();
 }
@@ -138,7 +138,7 @@ public Action Event_PlayerDisconnect(Handle hEvent, const char[] strName, bool b
         return Plugin_Continue;
 
     coop_failure_counter_on_before_player_disconnect();
-    skip_chapter_on_before_client_disconnect(iClient);
+    // skip_chapter_on_before_client_disconnect(iClient);
     campaign_manager_ON_before_client_disconnect(iClient);
 
     // Reset the client's votes

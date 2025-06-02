@@ -4,18 +4,9 @@
 
 void SetupConsoleCommands()
 {
-    // Register custom console commands
     RegConsoleCmd("changecampaign", MapVote);
-    // RegConsoleCmd("votemap", MapVote);
-    // RegConsoleCmd("votemaps", MapVote);
-    // RegConsoleCmd("acs", MapVote);
-    // RegConsoleCmd("acsvote", MapVote);
-    // RegConsoleCmd("voteacs", MapVote);
     RegConsoleCmd("campaignvotes", DisplayCurrentVotes);
-    // RegConsoleCmd("acsvotes", DisplayCurrentVotes);
-    // RegConsoleCmd("votesacs", DisplayCurrentVotes);
-    // RegConsoleCmd("votes", DisplayCurrentVotes);
-    RegConsoleCmd("skipchapter", skip_chapter_on_client_vote);
+    // RegConsoleCmd("skipchapter", skip_chapter_on_client_vote);
 }
 
 // Command that a player can use to vote/revote for a map/campaign

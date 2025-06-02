@@ -186,15 +186,15 @@ void campaign_manager_FNC_init(){
 
     //// init commands
 
-    RegConsoleCmd("printcampaigns", campaign_manager_ACTION_print_campaigns);
-    RegConsoleCmd("newskipchapter", campaign_manager_ON_skip_chapter_vote);
+    // RegConsoleCmd("printcampaigns", campaign_manager_ACTION_print_campaigns);
+    RegConsoleCmd("skipchapter", campaign_manager_ON_skip_chapter_vote);
 }
 
-Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
-{
-    campaign_manager_FNC_print_campaigns();
-    return Plugin_Continue;
-}
+// Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
+// {
+//     campaign_manager_FNC_print_campaigns();
+//     return Plugin_Continue;
+// }
 
 void campaign_manager_FNC_print_campaigns(){
     for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){

@@ -6,7 +6,7 @@
 //// Version 2.0.0 (Nov 14, 2021)
 //// By Chris Pringle
 
-#define PLUGIN_VERSION "v3.1"
+#define PLUGIN_VERSION "v3.2"
 #define PLUGIN_VERSION_MAJOR "v3"
 
 #pragma semicolon 1
