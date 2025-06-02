@@ -50,6 +50,18 @@ enum struct Campaign{
         this.ptr_chapters = ptr_chapters;
         this.num_chapters = num_chapters;
     }
+
+    char[] get_name(){
+        return campaign_manager_MEM[this.ptr_name];
+    }
+
+    int get_num_chapters(){
+        return this.num_chapters;
+    }
+
+    int get_ptr_chapters(){
+        return this.ptr_chapters;
+    }
 }
 
 void campaign_manager_FNC_init(){
@@ -168,32 +180,24 @@ void campaign_manager_FNC_init(){
 
 void campaign_manager_FNC_print_campaigns(){
     for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){
-        int ptr_name = campaign_manager_DB_campaigns[campaign_idx].ptr_name;
-        int ptr_chapters = campaign_manager_DB_campaigns[campaign_idx].ptr_chapters;
-        int num_chapters = campaign_manager_DB_campaigns[campaign_idx].num_chapters;
+        #define campaign (campaign_manager_DB_campaigns[campaign_idx])
 
-        PrintToChatAll("[CS] test: Campaign: %s", campaign_manager_MEM[ptr_name]);
+        int ptr_chapters = campaign.get_ptr_chapters();
+        int num_chapters = campaign.get_num_chapters();
+
+        PrintToChatAll("[CS] test: Campaign: %s", campaign.get_name());
 
         for(int chapter_idx=0; chapter_idx<num_chapters; ++chapter_idx){
             int ptr_chapter = ptr_chapters + chapter_idx;
             PrintToChatAll("[CS] test: Chapter: %s", campaign_manager_MEM[ptr_chapter]);
         }
+
+        #undef campaign
     }
 }
 
 Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
 {
-//     if (g_bVotingEnabled == false)
-//     {
-//         PrintToChat(iClient, "\x03[CS]\x05 Voting has been disabled on this server.");
-//         return;
-//     }
-// 
-//     // Open the vote menu for the client if they aren't using the server console
-//     if (iClient < 1)
-//         PrintToServer("You cannot vote for a map from the server console, use the in-game chat");
-//     else
-//         VoteMenuDraw(iClient);
     campaign_manager_FNC_print_campaigns();
     return Plugin_Continue;
 }
