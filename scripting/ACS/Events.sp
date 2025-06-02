@@ -59,6 +59,7 @@ public void OnMapStart()
 
     skip_chapter_on_map_start();
     coop_failure_counter_on_map_start();
+    campaign_manager_ON_map_start();
 }
 
 // Event fired when the Survivors leave the start area
@@ -138,6 +139,7 @@ public Action Event_PlayerDisconnect(Handle hEvent, const char[] strName, bool b
 
     coop_failure_counter_on_before_player_disconnect();
     skip_chapter_on_before_client_disconnect(iClient);
+    campaign_manager_ON_before_client_disconnect(iClient);
 
     // Reset the client's votes
     g_bClientVoted[iClient] = false;
