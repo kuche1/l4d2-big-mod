@@ -19,9 +19,12 @@
 
 #include "ACS/GlobalVariables.sp"
 
+// TODO rename `CS` to `cs`
 #include "CS/skip_chapter.sp"
 #include "CS/coop_failure_counter.sp"
 #include "CS/get_active_players.sp"
+#include "CS/campaign_manager.sp"
+#include "CS/str.sp"
 
 #include "ACS/MapNames.sp"
 #include "ACS/Advertising.sp"
@@ -47,6 +50,8 @@ public Plugin myinfo =
 
 public void OnPluginStart()
 {
+    campaign_manager_FNC_init();
+
     // Create the map list file if there its not there already
     CreateNewMapListFileIfDoesNotExist();
 
