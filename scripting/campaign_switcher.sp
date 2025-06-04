@@ -6,7 +6,7 @@
 //// Version 2.0.0 (Nov 14, 2021)
 //// By Chris Pringle
 
-#define PLUGIN_VERSION "v3.2"
+#define PLUGIN_VERSION "v3.3"
 #define PLUGIN_VERSION_MAJOR "v3"
 
 #pragma semicolon 1
@@ -27,7 +27,7 @@
 #include "CS/str.sp"
 
 #include "ACS/MapNames.sp"
-#include "ACS/Advertising.sp"
+// #include "ACS/Advertising.sp"
 #include "ACS/ChangeMap.sp"
 #include "ACS/ConsoleCommands.sp"
 #include "ACS/CVars.sp"

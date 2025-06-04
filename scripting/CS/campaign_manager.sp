@@ -4,12 +4,15 @@
 
 //// campaign stuff
 
-char campaign_manager_DEFAULTDB_maps[][PLATFORM_MAX_PATH] = {
-    "# If any of the maps are missing, they will simply not be added to the vote",
+char campaign_manager_DEFAULTDB_maps[][MAPNAME_SIZE] = {
+    "# Lines starting with \"#\" get ignored, as so do empty lines",
+    "# Lines starting with \"@\" mark a campaign name",
+    "# Lines starting with \"$\" mark a survival map (TODO UNFINISHED)",
+    "# If any of the maps are missing, they will be ignored",
     "",
     "# Official: L4D1",
     "",
-    "@No Mercy", "c8m1_apartment", "c8m2_subway", "c8m3_sewers", "c8m4_interior", "c8m5_rooftop",
+    "@No Mercy", "c8m1_apartment", "c8m2_subway", "c8m3_sewers", "c8m4_interior", "c8m5_rooftop", // "$c8m2_subway",
     "@Crash Course", "c9m1_alleys", "c9m2_lots",
     "@Death Toll", "c10m1_caves", "c10m2_drainage", "c10m3_ranchhouse", "c10m4_mainstreet", "c10m5_houseboat",
     "@Dead Air", "c11m1_greenhouse", "c11m2_offices", "c11m3_garage", "c11m4_terminal", "c11m5_runway",
@@ -39,81 +42,185 @@ char campaign_manager_DEFAULTDB_maps[][PLATFORM_MAX_PATH] = {
 
 #define campaign_manager_DEFAULTDB_maps_len (sizeof(campaign_manager_DEFAULTDB_maps))
 
-char campaign_manager_MEM[campaign_manager_DEFAULTDB_maps_len][PLATFORM_MAX_PATH];
-int campaign_manager_MEM_len = 0;
-
-Campaign campaign_manager_DB_campaigns[campaign_manager_DEFAULTDB_maps_len];
-int campaign_manager_DB_campaigns_len = 0
+CampaignManager campaign_manager;
 
 //// other
 
-enum struct Campaign{
-    int ptr_name;
-    int ptr_chapters;
-    int num_chapters;
+enum struct Chapter{ // TODO maybe just rename to `Map`
+    char map[MAPNAME_SIZE];
 
-    void init(int ptr_name, int ptr_chapters, int num_chapters){
-        this.ptr_name = ptr_name;
-        this.ptr_chapters = ptr_chapters;
-        this.num_chapters = num_chapters;
+    void init(char map[MAPNAME_SIZE]){
+        this.map = map;
+    }
+
+    char[] get_map(){
+        return this.map;
+    }
+}
+
+enum struct Campaign{
+    char name[MAPNAME_SIZE];
+
+    Chapter chapters[SETTING_MAX_MAPS_PER_CAMPAIGN_GAMEMODE];
+    int chapters_cap;
+    int chapters_len;
+
+    void init(char name[MAPNAME_SIZE]){
+        this.name = name;
+
+        this.chapters_cap = SETTING_MAX_MAPS_PER_CAMPAIGN_GAMEMODE;
+        this.chapters_len = 0;
+    }
+
+    // return `true` on failure
+    bool add_chapter(Chapter chapter){
+        if(this.chapters_len >= this.chapters_cap){
+            return true;
+        }
+
+        this.chapters[this.chapters_len] = chapter;
+        this.chapters_len += 1;
+
+        return false;
     }
 
     char[] get_name(){
-        return campaign_manager_MEM[this.ptr_name];
+        return this.name;
     }
 
-    int get_num_chapters(){
-        return this.num_chapters;
+    bool no_maps(){
+        return this.chapters_len <= 0;
     }
 
-    int get_ptr_chapters(){
-        return this.ptr_chapters;
+//     // return `true` if data was returned
+//     bool iter_chapters(int &mem_idx, Chapter ret_chapter){ // "reference is redundant, enum struct types are array-like"
+//         if(mem_idx >= this.chapters_len){
+//             return false;
+//         }
+// 
+//         ret_chapter = this.chapters[mem_idx];
+//         mem_idx += 1;
+// 
+//         return true;
+//     }
+
+    // return `true` on failure
+    bool get_chapter(int index, Chapter ret_chapter){
+        // PrintToChatAll("\x03[CS]\x05 dbg: index=%d this.chapters_len=%d", index, this.chapters_len);
+
+        if(index >= this.chapters_len){
+            return true;
+        }
+
+        ret_chapter = this.chapters[index];
+
+        return false;
+    }
+
+    // return `false` on failure
+    bool loop_chapters(int index, Chapter ret_chapter){
+        if(index >= this.chapters_len){
+            return false;
+        }
+
+        ret_chapter = this.chapters[index];
+
+        return true;
+    }
+}
+
+enum struct CampaignManager{
+    Campaign campaigns[SETTING_MAX_CAMPAIGNS];
+    int campaigns_cap;
+    int campaigns_len;
+
+    void init(){
+        this.campaigns_cap = SETTING_MAX_CAMPAIGNS;
+        this.campaigns_len = 0;
+    }
+
+    // return `true` on failure
+    bool add_campaign(Campaign campaign){
+        if(this.campaigns_len >= this.campaigns_cap){
+            return true;
+        }
+
+        this.campaigns[this.campaigns_len] = campaign;
+        this.campaigns_len += 1;
+
+        return false;
+    }
+
+//     // return `true` if data was returned
+//     bool iter_campaigns(int &mem_idx, Campaign ret_campaign){
+//         if(mem_idx >= this.campaigns_len){
+//             return false;
+//         }
+// 
+//         ret_campaign = this.campaigns[mem_idx];
+//         mem_idx += 1;
+// 
+//         return true;
+//     }
+
+    // return `true` on failure
+    bool get_campaign_wrapping(int index, Campaign ret_campaign){
+        if(this.campaigns_len <= 0){
+            return true;
+        }
+
+        index %= this.campaigns_len;
+
+        ret_campaign = this.campaigns[index];
+
+        return false;
+    }
+
+    // return `false` on failure
+    bool loop_campaigns(int index, Campaign ret_campaign){
+        if(index >= this.campaigns_len){
+            return false;
+        }
+
+        ret_campaign = this.campaigns[index];
+
+        return true;
     }
 }
 
 void campaign_manager_FNC_init(){
+    //// init manager
+
+    campaign_manager.init();
+
     //// init votes
 
     campaign_manager_FNC_reset_skip_chapter_votes();
 
     //// load campaigns from db
 
-    campaign_manager_MEM_len = 0;
-
     for(int defaultdb_idx=0; defaultdb_idx<campaign_manager_DEFAULTDB_maps_len; ++defaultdb_idx){
         if(str_is_whitespace(campaign_manager_DEFAULTDB_maps[defaultdb_idx])){
-            // empty
+            //// empty
             continue;
         }
 
         // if(str_startswith(campaign_manager_DEFAULTDB_maps[defaultdb_idx], "#")){
         if(campaign_manager_DEFAULTDB_maps[defaultdb_idx][0] == '#'){
-            // comment
+            //// comment
             continue;
         }
 
         //if(str_startswith(campaign_manager_DEFAULTDB_maps[defaultdb_idx], "@")){
         if(campaign_manager_DEFAULTDB_maps[defaultdb_idx][0] == '@'){
-            // map
+            //// map
 
-            // name
+            //// name
 
-            strcopy(
-                campaign_manager_MEM[campaign_manager_MEM_len],
-                PLATFORM_MAX_PATH,
-                campaign_manager_DEFAULTDB_maps[defaultdb_idx][1]
-            );
+            Campaign campaign;
+            campaign.init(campaign_manager_DEFAULTDB_maps[defaultdb_idx][1]);
 
-            int ptr_name = campaign_manager_MEM_len;
-
-            campaign_manager_MEM_len += 1;
-
-            // chapters
-
-            int ptr_chapters = campaign_manager_MEM_len;
-
-            int num_chapters = 0;
-            bool reject_campaign = false;
+            //// chapters
 
             for(;;){
                 defaultdb_idx += 1;
@@ -134,112 +241,153 @@ void campaign_manager_FNC_init(){
                     break;
                 }
 
-                char _map_fuzzyfind[PLATFORM_MAX_PATH];
+                bool is_survival_map = false;
+
+                if(campaign_manager_DEFAULTDB_maps[defaultdb_idx][0] == '$'){
+                    is_survival_map = true;
+                    // TODO remove that character
+                    // then increase `num_survival_maps`
+                    break;
+                }
+
+                char _map_fuzzyfind[MAPNAME_SIZE];
                 if (FindMap(campaign_manager_DEFAULTDB_maps[defaultdb_idx], _map_fuzzyfind, sizeof(_map_fuzzyfind)) == FindMap_Found){
 
                     PrintToServer("[CS] map checked -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
 
-                    campaign_manager_MEM[campaign_manager_MEM_len] = campaign_manager_DEFAULTDB_maps[defaultdb_idx];
-                    campaign_manager_MEM_len += 1;
+                    Chapter chapter;
+                    chapter.init(campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
 
-                    num_chapters += 1;
+                    if(campaign.add_chapter(chapter)){
+                        PrintToServer("[CS] could not add map (too many maps?)");
+                    }
 
                 }else{
 
                     PrintToServer("[CS] map missing -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
 
-                    reject_campaign = true;
+                    if(!is_survival_map){
+                        // reject_campaign = true;
+                    }
 
                 }
             }
 
-            if(num_chapters <= 0){
-                reject_campaign = true;
-            }
-
-            if(reject_campaign){
-                PrintToServer("[CS] campaign rejected -> %s", campaign_manager_MEM[ptr_name]);
+            if(campaign.no_maps()){
+                PrintToServer("[CS] no maps in campaign, rejecting -> %s", campaign.get_name());
                 continue;
             }
 
-            // init
+            // save campaign
 
-            Campaign campaign;
-            campaign.init(
-                ptr_name,
-                ptr_chapters,
-                num_chapters
-            );
+            campaign_manager.add_campaign(campaign);
 
-            campaign_manager_DB_campaigns[campaign_manager_DB_campaigns_len] = campaign;
-            campaign_manager_DB_campaigns_len += 1;
-
-            PrintToServer("[CS] campaign added -> %s", campaign_manager_MEM[ptr_name]);
+            PrintToServer("[CS] campaign added -> %s", campaign.get_name());
 
             // continue
 
             continue
         }
 
-        PrintToServer("[CS] ERROR: unreachable code reached (A)");
+        PrintToServer("[CS] unexpected item: %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
     }
 
     //// init commands
 
-    // RegConsoleCmd("printcampaigns", campaign_manager_ACTION_print_campaigns);
     RegConsoleCmd("skipchapter", campaign_manager_ON_skip_chapter_vote);
+    RegConsoleCmd("printcampaigns", campaign_manager_ACTION_print_campaigns);
 }
 
-// Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
-// {
-//     campaign_manager_FNC_print_campaigns();
-//     return Plugin_Continue;
-// }
+Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
+{
+    Campaign campaign;
+    for(int campaign_idx=0; campaign_manager.loop_campaigns(campaign_idx, campaign); ++campaign_idx){
 
-// void campaign_manager_FNC_print_campaigns(){
-//     for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){
-//         #define campaign (campaign_manager_DB_campaigns[campaign_idx])
-// 
-//         int ptr_chapters = campaign.get_ptr_chapters();
-//         int num_chapters = campaign.get_num_chapters();
-// 
-//         PrintToChatAll("[CS] test: Campaign: %s", campaign.get_name());
-// 
-//         for(int chapter_idx=0; chapter_idx<num_chapters; ++chapter_idx){
-//             int ptr_chapter = ptr_chapters + chapter_idx;
-//             PrintToChatAll("[CS] test: Chapter: %s", campaign_manager_MEM[ptr_chapter]);
-//         }
-// 
-//         #undef campaign
-//     }
-// }
+        PrintToChatAll("[CS] test: Campaign: %s", campaign.get_name());
+
+        Chapter chapter;
+        for(int chapter_idx=0; campaign.loop_chapters(chapter_idx, chapter); ++chapter_idx){
+
+            PrintToChatAll("[CS] test: Chapter: %s", chapter.get_map());
+
+        }
+
+    }
+
+    return Plugin_Continue;
+}
 
 void campaign_manager_FNC_skip_chapter(){
-    char current_map[PLATFORM_MAX_PATH];
+//     char current_map[PLATFORM_MAX_PATH];
+//     GetCurrentMap(current_map, sizeof(current_map));
+// 
+//     for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){
+// 
+//         int num_chapters = campaign_manager_DB_campaigns[campaign_idx].get_num_chapters();
+//         int ptr_chapters = campaign_manager_DB_campaigns[campaign_idx].get_ptr_chapters();
+// 
+//         for(int chapter_idx=0; chapter_idx<num_chapters; ++chapter_idx){
+// 
+//             if(StrEqual(current_map, campaign_manager_MEM[ptr_chapters + chapter_idx])){
+// 
+//                 int next_chapter_idx = chapter_idx + 1;
+// 
+//                 if(next_chapter_idx < num_chapters){
+//                     campaign_manager_FNC_change_map(campaign_manager_MEM[ptr_chapters + next_chapter_idx]);
+//                     return;
+//                 }
+// 
+//                 // TODO instead of just switching to the next map, cast a vote
+// 
+//                 int next_campaign_idx = (campaign_idx + 1) % campaign_manager_DB_campaigns_len;
+// 
+//                 int next_campaign_ptr_chapters = campaign_manager_DB_campaigns[next_campaign_idx].get_ptr_chapters();
+//                 campaign_manager_FNC_change_map(campaign_manager_MEM[next_campaign_ptr_chapters]);
+//                 return;
+// 
+//             }
+// 
+//         }
+// 
+//     }
+// 
+//     PrintToChatAll("\x03[CS]\x05 Current map not in the active rotation, cannot determine next map, you can change the campaign with !changecampaign");
+
+    char current_map[MAPNAME_SIZE];
     GetCurrentMap(current_map, sizeof(current_map));
 
-    for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){
+    Campaign campaign;
+    for(int campaign_idx=0; campaign_manager.loop_campaigns(campaign_idx, campaign); ++campaign_idx){
 
-        int num_chapters = campaign_manager_DB_campaigns[campaign_idx].get_num_chapters();
-        int ptr_chapters = campaign_manager_DB_campaigns[campaign_idx].get_ptr_chapters();
+        Chapter chapter;
+        for(int chapter_idx=0; campaign.loop_chapters(chapter_idx, chapter); ++chapter_idx){
 
-        for(int chapter_idx=0; chapter_idx<num_chapters; ++chapter_idx){
+            if(StrEqual(current_map, chapter.get_map())){
 
-            if(StrEqual(current_map, campaign_manager_MEM[ptr_chapters + chapter_idx])){
+                // PrintToChatAll("\x03[CS]\x05 dbg: campaign \"%s\", chapter \"%s\"", campaign.get_name(), chapter.get_map());
 
-                int next_chapter_idx = chapter_idx + 1;
+                Chapter next_chapter;
+                if(campaign.get_chapter(chapter_idx + 1, next_chapter)){
 
-                if(next_chapter_idx < num_chapters){
-                    campaign_manager_FNC_change_map(campaign_manager_MEM[ptr_chapters + next_chapter_idx]);
+                    // PrintToChatAll("\x03[CS]\x05 dbg: could not get next chapter");
+
+                    // TODO instead of just switching to the next map, cast a vote
+
+                    Campaign next_campaign;
+                    campaign_manager.get_campaign_wrapping(campaign_idx + 1, next_campaign);
+
+                    Chapter next_campaign_chapter;
+                    if(next_campaign.get_chapter(0, next_campaign_chapter)){
+                        PrintToChatAll("\x03[CS]\x05 ERROR: could not get first chapter of next campaign (%s)", next_campaign.get_name());
+                        return;
+                    }
+
+                    campaign_manager_FNC_change_map(next_campaign_chapter.get_map());
+
                     return;
                 }
 
-                // TODO instead of just switching to the next map, cast a vote
-
-                int next_campaign_idx = (campaign_idx + 1) % campaign_manager_DB_campaigns_len;
-
-                int next_campaign_ptr_chapters = campaign_manager_DB_campaigns[next_campaign_idx].get_ptr_chapters();
-                campaign_manager_FNC_change_map(campaign_manager_MEM[next_campaign_ptr_chapters]);
+                campaign_manager_FNC_change_map(next_chapter.get_map());
                 return;
 
             }
@@ -249,6 +397,4 @@ void campaign_manager_FNC_skip_chapter(){
     }
 
     PrintToChatAll("\x03[CS]\x05 Current map not in the active rotation, cannot determine next map, you can change the campaign with !changecampaign");
-
-    return;
 }

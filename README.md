@@ -14,6 +14,10 @@ Place the `.smx` file into the `left4dead2\addons\sourcemod\plugins` folder
 
 ## Change log
 
+###### v3.3 (2025-06-04)
+
+- Now using enum structs
+
 ###### v3.2 (2025-06-02)
 
 - Now reworked !skipchapter
