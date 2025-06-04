@@ -18,6 +18,7 @@ Place the `.smx` file into the `left4dead2\addons\sourcemod\plugins` folder
 
 - Now using enum structs
 - Now able to add survival-specific maps
+- Split the big campaign manager into multiple files
 
 ###### v3.2 (2025-06-02)
 
