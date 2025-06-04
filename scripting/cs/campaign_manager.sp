@@ -7,7 +7,7 @@
 char campaign_manager_DEFAULTDB_maps[][MAPNAME_SIZE] = {
     "# Lines starting with \"#\" get ignored, as so do empty lines",
     "# Lines starting with \"@\" mark a campaign name",
-    "# Lines starting with \"$\" mark a survival map (TODO UNFINISHED)",
+    "# Lines starting with \"$\" mark a survival map",
     "# If any of the maps are missing, they will be ignored",
     "",
     "# Official: L4D1",
@@ -65,11 +65,20 @@ enum struct Campaign{
     int chapters_cap;
     int chapters_len;
 
+    Map survivals[SETTING_MAX_MAPS_PER_CAMPAIGN_GAMEMODE];
+    int survivals_cap;
+    int survivals_len;
+
+    //// init
+
     void init(char name[MAPNAME_SIZE]){
         this.name = name;
 
         this.chapters_cap = SETTING_MAX_MAPS_PER_CAMPAIGN_GAMEMODE;
         this.chapters_len = 0;
+
+        this.survivals_cap = SETTING_MAX_MAPS_PER_CAMPAIGN_GAMEMODE;
+        this.survivals_len = 0;
     }
 
     // return `true` on failure
@@ -84,9 +93,62 @@ enum struct Campaign{
         return false;
     }
 
+    // return `true` on failure
+    bool add_survival(Map map){
+        if(this.survivals_len >= this.survivals_cap){
+            return true;
+        }
+
+        this.survivals[this.survivals_len] = map;
+        this.survivals_len += 1;
+
+        return false;
+    }
+
+    //// get
+
     char[] get_name(){
         return this.name;
     }
+
+    // return `true` on failure
+    bool get_chapter(int index, Map ret_chapter){
+        // PrintToChatAll("\x03[CS]\x05 dbg: index=%d this.chapters_len=%d", index, this.chapters_len);
+
+        if(index >= this.chapters_len){
+            return true;
+        }
+
+        ret_chapter = this.chapters[index];
+
+        return false;
+    }
+
+    //// loop
+
+    // return `false` on failure
+    bool loop_chapters(int index, Map ret_chapter){
+        if(index >= this.chapters_len){
+            return false;
+        }
+
+        ret_chapter = this.chapters[index];
+
+        return true;
+    }
+
+    // return `false` on failure
+    bool loop_survivals(int index, Map ret_map){
+        if(index >= this.survivals_len){
+            return false;
+        }
+
+        ret_map = this.survivals[index];
+
+        return true;
+    }
+
+    ////
 
     bool no_maps(){
         return this.chapters_len <= 0;
@@ -103,30 +165,6 @@ enum struct Campaign{
 // 
 //         return true;
 //     }
-
-    // return `true` on failure
-    bool get_chapter(int index, Map ret_chapter){
-        // PrintToChatAll("\x03[CS]\x05 dbg: index=%d this.chapters_len=%d", index, this.chapters_len);
-
-        if(index >= this.chapters_len){
-            return true;
-        }
-
-        ret_chapter = this.chapters[index];
-
-        return false;
-    }
-
-    // return `false` on failure
-    bool loop_chapters(int index, Map ret_chapter){
-        if(index >= this.chapters_len){
-            return false;
-        }
-
-        ret_chapter = this.chapters[index];
-
-        return true;
-    }
 }
 
 enum struct CampaignManager{
@@ -241,34 +279,41 @@ void campaign_manager_FNC_init(){
                     break;
                 }
 
+                bool skip_first_character = false;
                 bool is_survival_map = false;
 
                 if(campaign_manager_DEFAULTDB_maps[defaultdb_idx][0] == '$'){
+                    // PrintToServer("[CS] dbg: survival map found: %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
+                    skip_first_character = true;
                     is_survival_map = true;
-                    // TODO remove that character
-                    // then increase `num_survival_maps`
-                    break;
+                }
+
+                int map_sart_idx = 0;
+                if(skip_first_character){
+                    map_sart_idx = 1; // skip first character
                 }
 
                 char _map_fuzzyfind[MAPNAME_SIZE];
-                if (FindMap(campaign_manager_DEFAULTDB_maps[defaultdb_idx], _map_fuzzyfind, sizeof(_map_fuzzyfind)) == FindMap_Found){
+                if (FindMap(campaign_manager_DEFAULTDB_maps[defaultdb_idx][map_sart_idx], _map_fuzzyfind, sizeof(_map_fuzzyfind)) == FindMap_Found){
 
-                    PrintToServer("[CS] map checked -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
+                    PrintToServer("[CS] map checked -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx][map_sart_idx]);
 
-                    Map chapter;
-                    chapter.init(campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
+                    Map map;
+                    map.init(campaign_manager_DEFAULTDB_maps[defaultdb_idx][map_sart_idx]);
 
-                    if(campaign.add_chapter(chapter)){
-                        PrintToServer("[CS] could not add map (too many maps?)");
+                    if(is_survival_map){
+                        if(campaign.add_survival(map)){
+                            PrintToServer("[CS] could not add map (too many maps?)");
+                        }
+                    }else{
+                        if(campaign.add_chapter(map)){
+                            PrintToServer("[CS] could not add map (too many maps?)");
+                        }
                     }
 
                 }else{
 
-                    PrintToServer("[CS] map missing -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
-
-                    if(!is_survival_map){
-                        // reject_campaign = true;
-                    }
+                    PrintToServer("[CS] map missing -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx][map_sart_idx]);
 
                 }
             }
@@ -305,11 +350,14 @@ Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
 
         PrintToChatAll("[CS] test: Campaign: %s", campaign.get_name());
 
-        Map chapter;
-        for(int chapter_idx=0; campaign.loop_chapters(chapter_idx, chapter); ++chapter_idx){
+        Map map;
 
-            PrintToChatAll("[CS] test: Chapter: %s", chapter.get_name());
+        for(int chapter_idx=0; campaign.loop_chapters(chapter_idx, map); ++chapter_idx){
+            PrintToChatAll("[CS] test: Chapter: %s", map.get_name());
+        }
 
+        for(int survival_idx=0; campaign.loop_survivals(survival_idx, map); ++survival_idx){
+            PrintToChatAll("[CS] test: Survival: %s", map.get_name());
         }
 
     }
