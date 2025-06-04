@@ -12,7 +12,7 @@ char campaign_manager_DEFAULTDB_maps[][MAPNAME_SIZE] = {
     "",
     "# Official: L4D1",
     "",
-    "@No Mercy", "c8m1_apartment", "c8m2_subway", "c8m3_sewers", "c8m4_interior", "c8m5_rooftop", // "$c8m2_subway",
+    "@No Mercy", "c8m1_apartment", "c8m2_subway", "c8m3_sewers", "c8m4_interior", "c8m5_rooftop", "$c8m2_subway",
     "@Crash Course", "c9m1_alleys", "c9m2_lots",
     "@Death Toll", "c10m1_caves", "c10m2_drainage", "c10m3_ranchhouse", "c10m4_mainstreet", "c10m5_houseboat",
     "@Dead Air", "c11m1_greenhouse", "c11m2_offices", "c11m3_garage", "c11m4_terminal", "c11m5_runway",
@@ -46,22 +46,22 @@ CampaignManager campaign_manager;
 
 //// other
 
-enum struct Chapter{ // TODO maybe just rename to `Map`
-    char map[MAPNAME_SIZE];
+enum struct Map{
+    char name[MAPNAME_SIZE];
 
-    void init(char map[MAPNAME_SIZE]){
-        this.map = map;
+    void init(char name[MAPNAME_SIZE]){
+        this.name = name;
     }
 
-    char[] get_map(){
-        return this.map;
+    char[] get_name(){
+        return this.name;
     }
 }
 
 enum struct Campaign{
     char name[MAPNAME_SIZE];
 
-    Chapter chapters[SETTING_MAX_MAPS_PER_CAMPAIGN_GAMEMODE];
+    Map chapters[SETTING_MAX_MAPS_PER_CAMPAIGN_GAMEMODE];
     int chapters_cap;
     int chapters_len;
 
@@ -73,7 +73,7 @@ enum struct Campaign{
     }
 
     // return `true` on failure
-    bool add_chapter(Chapter chapter){
+    bool add_chapter(Map chapter){
         if(this.chapters_len >= this.chapters_cap){
             return true;
         }
@@ -105,7 +105,7 @@ enum struct Campaign{
 //     }
 
     // return `true` on failure
-    bool get_chapter(int index, Chapter ret_chapter){
+    bool get_chapter(int index, Map ret_chapter){
         // PrintToChatAll("\x03[CS]\x05 dbg: index=%d this.chapters_len=%d", index, this.chapters_len);
 
         if(index >= this.chapters_len){
@@ -118,7 +118,7 @@ enum struct Campaign{
     }
 
     // return `false` on failure
-    bool loop_chapters(int index, Chapter ret_chapter){
+    bool loop_chapters(int index, Map ret_chapter){
         if(index >= this.chapters_len){
             return false;
         }
@@ -255,7 +255,7 @@ void campaign_manager_FNC_init(){
 
                     PrintToServer("[CS] map checked -> %s", campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
 
-                    Chapter chapter;
+                    Map chapter;
                     chapter.init(campaign_manager_DEFAULTDB_maps[defaultdb_idx]);
 
                     if(campaign.add_chapter(chapter)){
@@ -305,10 +305,10 @@ Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
 
         PrintToChatAll("[CS] test: Campaign: %s", campaign.get_name());
 
-        Chapter chapter;
+        Map chapter;
         for(int chapter_idx=0; campaign.loop_chapters(chapter_idx, chapter); ++chapter_idx){
 
-            PrintToChatAll("[CS] test: Chapter: %s", chapter.get_map());
+            PrintToChatAll("[CS] test: Chapter: %s", chapter.get_name());
 
         }
 
@@ -324,12 +324,12 @@ void campaign_manager_FNC_skip_chapter(){
     Campaign campaign;
     for(int campaign_idx=0; campaign_manager.loop_campaigns(campaign_idx, campaign); ++campaign_idx){
 
-        Chapter chapter;
+        Map chapter;
         for(int chapter_idx=0; campaign.loop_chapters(chapter_idx, chapter); ++chapter_idx){
 
-            if(StrEqual(current_map, chapter.get_map())){
+            if(StrEqual(current_map, chapter.get_name())){
 
-                Chapter next_chapter;
+                Map next_chapter;
                 if(campaign.get_chapter(chapter_idx + 1, next_chapter)){
 
                     // TODO instead of just switching to the next map, cast a vote
@@ -337,18 +337,18 @@ void campaign_manager_FNC_skip_chapter(){
                     Campaign next_campaign;
                     campaign_manager.get_campaign_wrapping(campaign_idx + 1, next_campaign);
 
-                    Chapter next_campaign_chapter;
+                    Map next_campaign_chapter;
                     if(next_campaign.get_chapter(0, next_campaign_chapter)){
                         PrintToChatAll("\x03[CS]\x05 ERROR: could not get first chapter of next campaign (%s)", next_campaign.get_name());
                         return;
                     }
 
-                    campaign_manager_FNC_change_map(next_campaign_chapter.get_map());
+                    campaign_manager_FNC_change_map(next_campaign_chapter.get_name());
 
                     return;
                 }
 
-                campaign_manager_FNC_change_map(next_chapter.get_map());
+                campaign_manager_FNC_change_map(next_chapter.get_name());
                 return;
 
             }
