@@ -29,16 +29,16 @@ Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
     Campaign campaign;
     for(int campaign_idx=0; campaign_manager.loop_campaigns(campaign_idx, campaign); ++campaign_idx){
 
-        PrintToChatAll("[CS] test: Campaign: %s", campaign.get_name());
+        PrintToChatAll("[CS] Campaign: %s", campaign.get_name());
 
         Map map;
 
         for(int chapter_idx=0; campaign.loop_chapters(chapter_idx, map); ++chapter_idx){
-            PrintToChatAll("[CS] test: Chapter: %s", map.get_name());
+            PrintToChatAll("[CS] Chapter: %s", map.get_name());
         }
 
         for(int survival_idx=0; campaign.loop_survivals(survival_idx, map); ++survival_idx){
-            PrintToChatAll("[CS] test: Survival: %s", map.get_name());
+            PrintToChatAll("[CS] Survival: %s", map.get_name());
         }
 
     }
