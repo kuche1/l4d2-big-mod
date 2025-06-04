@@ -318,41 +318,6 @@ Action campaign_manager_ACTION_print_campaigns(int client_id, int args)
 }
 
 void campaign_manager_FNC_skip_chapter(){
-//     char current_map[PLATFORM_MAX_PATH];
-//     GetCurrentMap(current_map, sizeof(current_map));
-// 
-//     for(int campaign_idx=0; campaign_idx<campaign_manager_DB_campaigns_len; ++campaign_idx){
-// 
-//         int num_chapters = campaign_manager_DB_campaigns[campaign_idx].get_num_chapters();
-//         int ptr_chapters = campaign_manager_DB_campaigns[campaign_idx].get_ptr_chapters();
-// 
-//         for(int chapter_idx=0; chapter_idx<num_chapters; ++chapter_idx){
-// 
-//             if(StrEqual(current_map, campaign_manager_MEM[ptr_chapters + chapter_idx])){
-// 
-//                 int next_chapter_idx = chapter_idx + 1;
-// 
-//                 if(next_chapter_idx < num_chapters){
-//                     campaign_manager_FNC_change_map(campaign_manager_MEM[ptr_chapters + next_chapter_idx]);
-//                     return;
-//                 }
-// 
-//                 // TODO instead of just switching to the next map, cast a vote
-// 
-//                 int next_campaign_idx = (campaign_idx + 1) % campaign_manager_DB_campaigns_len;
-// 
-//                 int next_campaign_ptr_chapters = campaign_manager_DB_campaigns[next_campaign_idx].get_ptr_chapters();
-//                 campaign_manager_FNC_change_map(campaign_manager_MEM[next_campaign_ptr_chapters]);
-//                 return;
-// 
-//             }
-// 
-//         }
-// 
-//     }
-// 
-//     PrintToChatAll("\x03[CS]\x05 Current map not in the active rotation, cannot determine next map, you can change the campaign with !changecampaign");
-
     char current_map[MAPNAME_SIZE];
     GetCurrentMap(current_map, sizeof(current_map));
 
@@ -364,12 +329,8 @@ void campaign_manager_FNC_skip_chapter(){
 
             if(StrEqual(current_map, chapter.get_map())){
 
-                // PrintToChatAll("\x03[CS]\x05 dbg: campaign \"%s\", chapter \"%s\"", campaign.get_name(), chapter.get_map());
-
                 Chapter next_chapter;
                 if(campaign.get_chapter(chapter_idx + 1, next_chapter)){
-
-                    // PrintToChatAll("\x03[CS]\x05 dbg: could not get next chapter");
 
                     // TODO instead of just switching to the next map, cast a vote
 
