@@ -15,16 +15,15 @@
 #include <sourcemod>
 #include <sdktools>
 
-#include "CS/settings.sp"
+#include "cs/settings.sp"
 
 #include "ACS/GlobalVariables.sp"
 
-// TODO rename `CS` to `cs`
-// #include "CS/skip_chapter.sp"
-#include "CS/coop_failure_counter.sp"
-#include "CS/get_active_players.sp"
-#include "CS/campaign_manager.sp"
-#include "CS/str.sp"
+// #include "cs/skip_chapter.sp"
+#include "cs/coop_failure_counter.sp"
+#include "cs/get_active_players.sp"
+#include "cs/campaign_manager.sp"
+#include "cs/str.sp"
 
 #include "ACS/MapNames.sp"
 // #include "ACS/Advertising.sp"
