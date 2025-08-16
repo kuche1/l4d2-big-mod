@@ -28,6 +28,16 @@ enum struct MapManager{
         campaign.add_chapter("c8m5_rooftop");
         campaign.add_survival("c8m2_subway");
         this.add(campaign);
+
+        campaign.init("Crash Course");
+        campaign.add_chapter("c9m1_alleys");
+        campaign.add_chapter("c9m2_lots");
+        campaign.add_survival("c9m1_alleys");
+        campaign.add_survival("c9m2_lots");
+        this.add(campaign);
+
+        // TODO
+        //"@Death Toll", "c10m1_caves", "c10m2_drainage", "c10m3_ranchhouse", "c10m4_mainstreet", "c10m5_houseboat",
     }
 
     void add(Campaign campaign){
