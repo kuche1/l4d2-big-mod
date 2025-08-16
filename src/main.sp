@@ -5,8 +5,6 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PREFIX "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [BM]"
-
 #include "settings.sp"
 #include "map_manager/map_manager.sp"
 
@@ -21,5 +19,6 @@ public Plugin myinfo =
 
 public void OnPluginStart()
 {
-    map_manager__init();
+    // map_manager__init();
+    map_manager.init();
 }

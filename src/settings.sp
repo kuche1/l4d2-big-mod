@@ -1,4 +1,6 @@
 
+#define PREFIX "!!!!!!!!!!!!!!!!!!!!!!!! [BM]"
+
 #define MAP_NAME_MAX_SIZE 20 // PLATFORM_MAX_PATH
 
 #define CAMPAIGN_NAME_MAX_SIZE 20

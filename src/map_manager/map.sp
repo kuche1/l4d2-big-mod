@@ -8,6 +8,7 @@ enum struct Map{
         if (!(FindMap(name, _fuzzyfind, sizeof(_fuzzyfind)) == FindMap_Found)){
             return true;
         }
+
         this.name = name;
         return false;
     }
