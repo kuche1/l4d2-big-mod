@@ -1,6 +1,4 @@
 
-#define PLUGIN_VERSION "v0.0-dev0"
-
 #pragma semicolon 1
 #pragma newdecls required
 
@@ -11,10 +9,10 @@
 
 public Plugin myinfo =
 {
-    name        = "Big Mod/",
+    name        = "Big Mod",
     author      = "kuche1",
-    description = "Allows for voting for campaigns",
-    version     = PLUGIN_VERSION,
+    description = "Big Mod",
+    version     = "v0.0-dev0",
     url         = "https://github.com/kuche1/l4d2-big-mod",
 }
 
