@@ -5,15 +5,28 @@ set -euo pipefail
 ME=$(readlink -e -- "$BASH_SOURCE")
 HERE=$(dirname -- "$ME")
 
-# how to get the compiler:
-# download a build from https://www.sourcemod.net/downloads.php
-# unarchive to `local-sourcemod` in the parent folder
-
 {
     cd "$HERE"
 
+    compiler='./sourcemod/addons/sourcemod/scripting/spcomp'
+
+    if [ ! -f "$compiler" ]; then
+        echo "The compiler needs to be present at the following location: $compiler"
+        echo 'You can download it from https://www.sourcemod.net/downloads.php'
+        exit 1
+    fi
+
+    # mark compiler as executable
+    chmod +x "$compiler"
+
+    if [ -d "/etc/nix" ]; then
+        nixos_fixer="steam-run"
+    else
+        nixos_fixer=""
+    fi
+
     # compile ACS
-    ./sourcemod/addons/sourcemod/scripting/spcomp ./scripting/campaign_switcher.sp -v:0
+    "$nixos_fixer" "$compiler" ./scripting/campaign_switcher.sp -v:0
 
     cd -
 }
