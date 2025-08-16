@@ -5,7 +5,9 @@
 #include <sourcemod>
 #include <sdktools>
 
-// #include "settings.sp"
+#define PREFIX "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [BM]"
+
+#include "settings.sp"
 #include "map_manager/map_manager.sp"
 
 public Plugin myinfo =
