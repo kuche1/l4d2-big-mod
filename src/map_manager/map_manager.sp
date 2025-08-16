@@ -2,22 +2,19 @@
 #include "map.sp"
 #include "campaign.sp"
 
-void map_manager__init(){
-    // note: this fuzzy find trick does not work on orange box games with workshop maps
-    // https://sm.alliedmods.net/new-api/halflife/FindMap
-    char fuzzy_search_map_found[MAP_NAME_MAX_SIZE];
-    FindMapResult find_type = FindMap("a", fuzzy_search_map_found, sizeof(fuzzy_search_map_found));
-    PrintToServer("%s resulttype:%d", PREFIX, find_type);
-    
-    switch(find_type){
-        case FindMap_Found: {
-            PrintToServer("%s !found!", PREFIX, fuzzy_search_map_found);
-        }
-        case FindMap_NotFound: {
+enum struct MapManager{
+    Campaign campaigns[MAX_CAMPAIGNS];
+}
 
-        }
-        case FindMap_FuzzyMatch: {
-            PrintToServer("%s fuzzy found: %s", PREFIX, fuzzy_search_map_found);
-        }
-    }
+void map_manager__init(){
+    Campaign campaign;
+    // IMPROVE: do not hardcode the campaigns like that
+
+    campaign.init("No Mercy");
+    campaign.add_chapter("c8m1_apartment");
+    campaign.add_chapter("c8m2_subway");
+    campaign.add_chapter("c8m3_sewers");
+    campaign.add_chapter("c8m4_interior");
+    campaign.add_chapter("c8m5_rooftop");
+    // campaign.add_survival("c8m2_subway"); // TODO
 }
