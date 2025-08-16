@@ -10,6 +10,8 @@ COMPILER="$HERE/sourcemod/addons/sourcemod/scripting/spcomp"
 INPUT="$HERE/src/main.sp"
 OUTPUT="$HERE/big_mod.smx"
 
+VERBOSITY=1
+
 {
     cd "$HERE"
 
@@ -23,7 +25,11 @@ OUTPUT="$HERE/big_mod.smx"
     chmod +x "$COMPILER"
 
     # compile
-    "$COMPILER" "$INPUT" -v:0 -o "$OUTPUT"
+    echo
+    echo 'Compiling...'
+    echo
+    "$COMPILER" "$INPUT" -v:$VERBOSITY -o "$OUTPUT"
+    echo
 
     cd -
 }
