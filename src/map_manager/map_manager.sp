@@ -1,6 +1,7 @@
 
 #include "map.sp"
 #include "campaign.sp"
+#include "cmd_map.sp"
 
 enum struct MapManager{
     Campaign campaigns[MAX_CAMPAIGNS];
@@ -47,6 +48,7 @@ enum struct MapManager{
         //////////
 
         RegConsoleCmd("bm-dbg", map_manager__cmd_dbg);
+        RegConsoleCmd("bm-map", map_manager__cmd_map);
     }
 
     void add(Campaign campaign){
