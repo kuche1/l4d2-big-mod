@@ -38,6 +38,15 @@ enum struct MapManager{
 
         // TODO
         //"@Death Toll", "c10m1_caves", "c10m2_drainage", "c10m3_ranchhouse", "c10m4_mainstreet", "c10m5_houseboat",
+
+        // TODO
+        // the rest of the official maps + some community maps
+
+        //////////
+        ////////// chat/console commands
+        //////////
+
+        RegConsoleCmd("bm-dbg", map_manager__cmd_dbg);
     }
 
     void add(Campaign campaign){
@@ -58,3 +67,12 @@ enum struct MapManager{
 }
 
 MapManager map_manager;
+
+Action map_manager__cmd_dbg(int client, int args)
+{
+    ReplyToCommand(client, "hello");
+    // we could use PrintToChat or the print to console alternative, but
+    // this way we automaticaclly print to wherever the command was called from
+
+    return Plugin_Handled; // otherwise we would get "unknown command"
+}
