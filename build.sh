@@ -22,7 +22,7 @@ OUTPUT="$HERE/big_mod.smx"
     # mark compiler as executable
     chmod +x "$COMPILER"
 
-    # compile ACS
+    # compile
     "$COMPILER" "$INPUT" -v:0 -o "$OUTPUT"
 
     cd -
