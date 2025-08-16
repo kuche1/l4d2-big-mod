@@ -86,7 +86,7 @@ public Action Event_RoundEnd(Handle hEvent, const char[] strName, bool bDontBroa
 
                 int failure_count = coop_failure_counter_get_count();
 
-                // PrintToChatAll("\x03[CS]\x05 dbg: Failure Count: %d", failure_count);
+                // PrintToChatAll("\x03[CS]\x05 dbg: Failure Count: %d (>=  %d)", failure_count, g_coopShowMapVoteMessageAfterFailures);
 
                 if (g_bVotingEnabled == true)
                 {
