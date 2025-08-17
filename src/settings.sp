@@ -13,3 +13,4 @@
 
 #define CMD_SKIP_CHAPTER "!bmskipchapter"
 #define CMD_CHANGE_CAMPAIGN "!bmchangecampaign"
+#define CMD_CHANGE_
