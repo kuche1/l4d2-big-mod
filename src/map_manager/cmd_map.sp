@@ -26,31 +26,23 @@ Action map_manager__cmd_map(int client, int args)
     map_manager__mapchange_votes[client] = true; // TODO: reset the votes on map change AND on client disconnect
     int votes = map_manager__mapchange_count_votes();
 
-    PrintToChat(client, "client %d has voted to change the map; votes=%d", client, votes);
+    PrintToChat(client, "%d client %d has voted to change the map; votes=%d", PREFIX, client, votes);
     // TODO: print the name rather than the id
 
     // TODO: everything below this line is untested
     // also, the error codes need to be checked
 
     // Create the menu
-    Menu menu = CreateMenu(VoteMenuHandler);
-
-    // SetMenuPagination(menu, 4);
-    // set number of items per page
+    Menu menu = CreateMenu(map_manager__cmd_map__menu_handler);
 
     // Give the player the option of not choosing a map
     // AddMenuItem(menu, "option1", "I Don't Care");
 
-    SetMenuTitle(menu, "Select next map\n"); // TODO: do we need the new line ?
+    SetMenuTitle(menu, "Select next map"); // TODO: do we need the new line ?
 
-    AddMenuItem(menu, "2", "disabled", ITEMDRAW_DISABLED);
-    AddMenuItem(menu, "3", "disabled", ITEMDRAW_DISABLED);
-    AddMenuItem(menu, "4", "disabled", ITEMDRAW_DISABLED);
-    AddMenuItem(menu, "5", "disabled", ITEMDRAW_DISABLED);
-    AddMenuItem(menu, "6", "disabled", ITEMDRAW_DISABLED);
-    AddMenuItem(menu, "7", "asdfg");
-    AddMenuItem(menu, "8", "aa");
-    AddMenuItem(menu, "9", "ff");
+    AddMenuItem(menu, "1", "Skip Chapter");
+    AddMenuItem(menu, "2", "Change Campaign");
+    AddMenuItem(menu, "2", "Change Gamemode");
 
     SetMenuExitButton(menu, false);
     // if I set this to `true`, the button is grayed out and does nothing
@@ -63,15 +55,14 @@ Action map_manager__cmd_map(int client, int args)
     return Plugin_Handled;
 }
 
-public int VoteMenuHandler(Menu menu, MenuAction action, int iClient, int iItemNum)
+public int map_manager__cmd_map__menu_handler(Menu menu, MenuAction action, int client, int item)
 {
-    // TODO: trash handler
-    if (action == MenuAction_End)
-    {
+    if (action == MenuAction_End){
         delete menu;
-    }
-    else if (action == MenuAction_Select)
-    {
+    }else if (action == MenuAction_Select){
+
+        PrintToChat(client, "%d dbg: client %d has voted for %d", PREFIX, client, item);
+
         // g_bClientVoted[iClient] = true;
 
         // // Set the players current vote
