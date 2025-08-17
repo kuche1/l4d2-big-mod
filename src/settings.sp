@@ -8,3 +8,5 @@
 #define CAMPAIGN_MAX_MAPS_SURVIVAL 4
 
 #define MAX_CAMPAIGNS 30
+
+#define SOUND_NEW_VOTE_START "ui/Beep_SynthTone01.wav"

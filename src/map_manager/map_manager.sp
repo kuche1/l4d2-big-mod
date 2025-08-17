@@ -15,6 +15,12 @@ enum struct MapManager{
         this.campaigns_len = 0;
 
         //////////
+        ////////// precache
+        //////////
+
+        PrecacheSound(SOUND_NEW_VOTE_START);
+
+        //////////
         ////////// add campaigns
         //////////
 
